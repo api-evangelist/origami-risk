@@ -1,0 +1,352 @@
+aid: origami-risk
+name: Origami Risk
+review:
+  question: Does Origami Risk publish a real, public, self-serve developer portal and
+    downloadable API specifications for its US property and casualty core insurance
+    platform?
+  answer: true
+  date: '2026-07-25'
+  reviewer: API Evangelist
+  homeMarket: United States
+  tier: core-systems
+findings:
+  summary: |
+    Origami Risk is one of the exceptions in the US insurance sector. The US has no
+    federal insurance regulator and no open-insurance mandate, so almost nothing in
+    this market forces a public API surface — but Origami Risk sits in the software
+    layer between carriers and distribution, and it does run a genuinely public
+    developer portal at https://developers.origamirisk.com (HTTP 200, ReadMe-hosted,
+    project privacy view=public). The reference is readable without logging in: the
+    full left navigation, every endpoint page and the authentication guides render
+    anonymously. A "Log In" link exists at /login?redirect_uri=/ but it gates nothing
+    that was probed — this is a real self-serve developer portal, not a partner login
+    wall. It is, however, explicitly in beta (a "Beta Notification" guide sits at the
+    top of the guides tree) and it is thin on guides: only five docs pages exist
+    (getting-started, setting-the-environment, max-url-limits-on-get-requests,
+    max-request-payload-size-for-any-api-request, beta-notification) against roughly
+    180 endpoint reference pages.
+
+    Four OpenAPI definitions are registered to the portal and all four were harvested
+    verbatim from ReadMe's public API registry. Only one of the four is a substantive
+    specification. The portal's own project config sets openapi privacy to "admin",
+    so the /branches/1.0/apis/*.json download paths do not serve anonymously; the
+    specs were retrieved instead via the registry UUIDs embedded in the public page
+    payload. The practical finding is that Origami Risk documents a large REST surface
+    as hand-authored ReadMe pages rather than shipping a complete machine-readable
+    definition — the four registered specs cover 11 paths between them while the
+    reference documents on the order of 180 operations.
+
+    On the sector-specific signal, Origami Risk makes no ACORD claim at all. Neither
+    the marketing site (origamirisk.com/platform/api-access/,
+    /platform/third-party-system-integrations, /solutions/insurance/) nor the developer
+    portal mentions ACORD, AL3, ACORD XML, NGDS, IVANS, agency download, Applied Epic,
+    Vertafore or AMS360. The only standards-shaped artifact anywhere in the API surface
+    is a queued action named EDIReport (POST /api/v2/actions/queue/EDIReport/{domain}/{id}),
+    which is consistent with US state workers' compensation EDI reporting rather than
+    with ACORD transport. Integration marketing instead names REST API, web services,
+    a "vast library of pre-built integrations", and Databricks Delta Sharing for bulk
+    structured data.
+
+    All four insurance verbs are exposed, and they are exposed as tenant/partner-facing
+    operations rather than consumer-facing ones. Quote and rate: POST /api/quotes/proposals
+    plus /rating/run, /rating/queue and /rating/status. Bind: /bindquote, /queuebindquote
+    and /bindstatus. Issue and lifecycle: POST /api/policies/{proposalId}/accept plus
+    endorse, cancel, reinstate and change-billing-frequency on the issued policy. FNOL:
+    POST /api/v1/actions/createclaimfromincident/{incidentId} and the FirstReport queued
+    action. Billing and payments are present including a One Inc payment gateway
+    integration. Outbound webhooks exist as a handler-discovery and sample-payload
+    surface, but there is no AsyncAPI document and no standalone event catalog.
+
+    Access to a live surface remains commercial. The base URL is a per-customer
+    templated host, https://{environment}.origamirisk.com/OrigamiApi and
+    /OrigamiApi-v2 — there is no shared public API hostname and api.origamirisk.com
+    does not resolve. Authentication is token-based against a provisioned Origami
+    account in two documented formats (a simple Account/User/Password/ClientName JSON
+    payload, and an OAuth-style client_credentials request using a combined Client_ID
+    and Client_Secret), with HMAC authorization available as a higher-security
+    per-call signing option; the harvested specs declare an apiKey security scheme
+    carrying the token in a "Token" header. No OpenID Connect or OAuth authorization
+    server metadata is served (both /.well-known probes returned 404). The portal
+    reports no GraphQL module and no connected Postman integration.
+  portal:
+    url: https://developers.origamirisk.com/
+    status: 200
+    platform: ReadMe (superhub, deploy 5.825.0, subdomain origami-risk)
+    classification: real self-serve developer portal, publicly readable, in beta
+    loginWall: false
+    loginUrl: https://developers.origamirisk.com/login?redirect_uri=/
+    note: Project privacy is view=public; openapi=admin, which blocks the direct
+      /branches/1.0/apis/*.json spec download paths but not the reference content.
+  probes:
+  - url: https://developers.origamirisk.com/
+    status: 200
+  - url: https://developer.origamirisk.com/
+    status: 200
+    note: 301/redirects to https://developers.origamirisk.com/
+  - url: https://developers.origamirisk.com/docs
+    status: 200
+  - url: https://developers.origamirisk.com/reference
+    status: 200
+  - url: https://developers.origamirisk.com/reference/authentication-methods
+    status: 200
+  - url: https://developers.origamirisk.com/reference/domains-entities
+    status: 200
+  - url: https://developers.origamirisk.com/reference/policies
+    status: 200
+  - url: https://developers.origamirisk.com/reference/billing-accounts
+    status: 200
+  - url: https://developers.origamirisk.com/reference/webhooks
+    status: 200
+  - url: https://developers.origamirisk.com/reference/reports
+    status: 200
+  - url: https://developers.origamirisk.com/reference/files
+    status: 200
+  - url: https://developers.origamirisk.com/reference/actions
+    status: 200
+  - url: https://developers.origamirisk.com/reference/quotes-and-proposals
+    status: 429
+    note: Listed in the public reference navigation of the 200 /reference page;
+      direct probes were repeatedly rate limited by the edge (Cloudflare 429), not
+      gated by login.
+  - url: https://developers.origamirisk.com/openapi.json
+    status: 404
+  - url: https://developers.origamirisk.com/swagger.json
+    status: 404
+  - url: https://docs.origamirisk.com/
+    status: 0
+    note: Does not resolve.
+  - url: https://api.origamirisk.com/
+    status: 0
+    note: Does not resolve. There is no shared public API hostname.
+  - url: https://www.origamirisk.com/platform/api-access/
+    status: 200
+  - url: https://www.origamirisk.com/partners/
+    status: 200
+  - url: https://www.origamirisk.com/developers
+    status: 404
+  - url: https://www.origamirisk.com/integrations
+    status: 404
+  - url: https://www.origamirisk.com/.well-known/openid-configuration
+    status: 404
+  - url: https://www.origamirisk.com/.well-known/oauth-authorization-server
+    status: 404
+  specs:
+    harvested: true
+    count: 4
+    substantive: 1
+    note: Retrieved verbatim from ReadMe's public API registry using the registry
+      UUIDs published in the developer portal page payload, because the portal's own
+      /branches/1.0/apis/*.json download paths are admin-restricted.
+    files:
+    - path: openapi/origami-risk-public-api-openapi.json
+      sourceFilename: origami-risk-public-api.json
+      sourceURL: https://dash.readme.com/api/v1/api-registry/42jzdqmb9blt8y
+      status: 200
+      fetched: '2026-07-25'
+      openapi: 3.0.0
+      title: Origami Risk Public API
+      paths: 4
+      quality: scaffold — contains ReadMe API Designer placeholder operations
+        ("New Endpoint", "This is your first endpoint!") alongside real
+        /HasTokenExpired and /Authentication/Authenticate operations; declares the
+        ApiKeyAuth "Token" header scheme and the
+        https://{environment}.origamirisk.com/OrigamiApi server.
+    - path: openapi/origami-risk-authentication-openapi.json
+      sourceFilename: origami-risk.json
+      sourceURL: https://dash.readme.com/api/v1/api-registry/42jzd1imb9b9vdt
+      status: 200
+      fetched: '2026-07-25'
+      openapi: 3.0.0
+      title: Origami Risk Authentication
+      paths: 3
+      quality: scaffold — real /Authentication/HasTokenExpired and
+        /Authentication/Ping operations plus an Authenticate request body carrying
+        Account/User/Password/ClientName, but one path is still literally named
+        "Authenticate-DELETEME"; declares the
+        https://{environment}.origamirisk.com/OrigamiApi-v2 server.
+    - path: openapi/origami-risk-standard-rating-api-openapi.json
+      sourceFilename: standardratingapi_openapi.json
+      sourceURL: https://dash.readme.com/api/v1/api-registry/42jzd2dmb9egs3n
+      status: 200
+      fetched: '2026-07-25'
+      openapi: 3.0.1
+      title: Rating API
+      paths: 3
+      quality: substantive — POST /Requests/sync, POST /Requests/async and
+        GET/DELETE /Requests/{requestId} with full StandardRatingRequestDto,
+        SyncRatingResponseDto, AsyncRatingResponseDto, RatingResultDetailsDto and
+        ProblemDetails schemas. Declares a non-production server
+        (http://origamirater-standard.dev.dais.com?oas), which is a leaked internal
+        development host rather than a customer base URL.
+    - path: openapi/origami-risk-rating-api-openapi.json
+      sourceFilename: rating-api.json
+      sourceURL: https://dash.readme.com/api/v1/api-registry/42jzd2dmb9ehfrz
+      status: 200
+      fetched: '2026-07-25'
+      openapi: 3.0.0
+      title: Rating API
+      paths: 1
+      quality: scaffold — a single untouched "New Endpoint" placeholder; declares
+        the same internal http://origamirater-standard.dev.dais.com server.
+  acord:
+    posture: no ACORD reference found; only a state EDI report action (EDIReport)
+    searchedFor:
+    - ACORD
+    - AL3
+    - ACORD XML
+    - NGDS
+    - ACORD certified
+    - IVANS
+    - agency download
+    - Applied Epic
+    - Vertafore
+    - AMS360
+    foundInDeveloperPortal:
+    - term: EDIReport
+      occurrences: 2
+      note: A queued platform action, POST /api/v2/actions/queue/EDIReport/{domain}/{id},
+        consistent with US state workers' compensation EDI reporting. Not ACORD.
+    foundOnMarketingSite: []
+    note: Origami Risk's integration marketing names REST API, web services,
+      pre-built integrations and Databricks Delta Sharing. It makes no ACORD, AL3,
+      NGDS or IVANS conformance claim anywhere that was probed. For a US P&C core
+      system this is a meaningful absence — the sector's default data idiom is not
+      what this vendor markets on.
+  insuranceVerbs:
+    quote:
+      exposed: true
+      audience: tenant/partner
+      endpoints:
+      - POST /api/quotes/proposals
+      - POST /api/quotes/proposals/{proposalId}/rating/run
+      - POST /api/quotes/proposals/{proposalId}/rating/queue
+      - GET /api/quotes/proposals/{proposalId}/rating/status
+    bind:
+      exposed: true
+      audience: tenant/partner
+      endpoints:
+      - POST /api/quotes/proposals/{proposalId}/bindquote
+      - POST /api/quotes/proposals/{proposalId}/queuebindquote
+      - GET /api/quotes/proposals/{proposalId}/bindstatus
+    issue:
+      exposed: true
+      audience: tenant/partner
+      endpoints:
+      - POST /api/policies/{proposalId}/accept
+      - POST /api/policies/{proposalId}/reject
+      - POST /api/policies/{policyId}/endorse
+      - POST /api/policies/{policyId}/cancel
+      - POST /api/policies/{policyId}/reinstate
+    fnol:
+      exposed: true
+      audience: tenant/partner
+      endpoints:
+      - POST /api/v1/actions/createclaimfromincident/{incidentId}
+      - POST /api/v2/actions/queue/FirstReport/{domain}/{id}
+    note: None of these are consumer-facing. Every verb is reachable only from within
+      a provisioned Origami tenant, which is the normal shape for a core-systems
+      vendor rather than for an embedded-insurance API.
+  transports:
+  - protocol: REST
+    scheme: https
+    baseURL: https://{environment}.origamirisk.com/OrigamiApi
+    documented: true
+  - protocol: REST
+    scheme: https
+    baseURL: https://{environment}.origamirisk.com/OrigamiApi-v2
+    documented: true
+    note: v2 surface, carries the Authentication and queued-action endpoints.
+  - protocol: Webhooks
+    scheme: https
+    documented: true
+    note: Handler discovery (GET /api/webhook/getHandlers), sample payload retrieval
+      (GET /api/webhook/{name}/getSample) and POST /api/webhook/{name}. Plus a One
+      Inc payment webhook surface. No AsyncAPI document published.
+  - protocol: GraphQL
+    documented: false
+    note: The developer portal's own module configuration reports graphql=false. No
+      GraphQL endpoint was found.
+  - protocol: gRPC
+    documented: false
+    note: No .proto artifacts published.
+  - protocol: EDI
+    documented: partial
+    note: An EDIReport queued action exists in the API but no EDI transport, ACORD
+      AL3 mapping or IVANS connection is documented publicly.
+  auth:
+    model: API token (provisioned account) with optional HMAC request signing
+    schemes:
+    - name: Simple token
+      note: POST an Account/User/Password/ClientName JSON payload to obtain a token.
+    - name: OAuth-format token
+      note: OAuth-style client_credentials request using a combined Client_ID and
+        Client_Secret. Documented as a token format, not a full OAuth 2.0 authorization
+        server.
+    - name: HMAC authorization
+      note: Per-call one-way dynamically changing signature; documented as higher
+        overhead but additional security.
+    - name: ApiKeyAuth
+      note: Declared in the harvested specs as an apiKey scheme in the "Token" header.
+    oidcDiscovery: false
+    selfServeCredentials: false
+    note: Reading the docs is self-serve. Getting a working credential is not — it
+      requires a provisioned Origami Risk account and environment.
+  postman:
+    published: false
+    note: The portal's integration configuration reports the Postman integration as
+      not connected. No public Postman workspace or collection was found.
+  sdks:
+    published: false
+    note: No first-party SDK, CLI or client library was found on the portal or on a
+      public package registry under an Origami Risk namespace.
+  gated: false
+  gatedNote: The documentation is open. The runtime is commercial and per-tenant,
+    which is a pricing gate rather than a documentation gate.
+sources:
+- url: https://developers.origamirisk.com/
+  type: DeveloperPortal
+  note: Public landing page. Navigation to Guides (/docs), API Reference (/reference)
+    and a Beta Notification page.
+- url: https://developers.origamirisk.com/reference
+  type: APIReference
+  note: Full public reference navigation covering Actions, API Availability Ping,
+    Authentication Methods, Account Information, Billing Accounts, Domains and
+    Entities, Files, Links, Mail Merge, Metadata for Forms and Fields, Migrations,
+    Silent Migration, Online Policy Payment, Policies, Quotes and Proposals, Reports,
+    Webhooks and Webservices.
+- url: https://developers.origamirisk.com/reference/authentication-methods
+  type: Authentication
+  note: Documents simple token format, OAuth token format and HMAC authorization.
+- url: https://developers.origamirisk.com/docs
+  type: Documentation
+  note: Five guides only — getting-started, setting-the-environment,
+    max-url-limits-on-get-requests, max-request-payload-size-for-any-api-request,
+    beta-notification.
+- url: https://www.origamirisk.com/platform/api-access/
+  type: ProductOverview
+  note: '"Connect systems seamlessly with REST API and web services for risk and
+    insurance data integration" plus Databricks Delta Sharing. No ACORD, AL3, IVANS,
+    Applied Epic or Vertafore mention.'
+- url: https://www.origamirisk.com/solutions/insurance/
+  type: Website
+  note: Names policy administration, billing, claims administration, and the
+    workers' compensation, medical professional liability, personal auto and
+    homeowners lines for carriers, MGAs, TPAs and risk pools. No ACORD or EDI
+    mention.
+- url: https://www.origamirisk.com/products/policy-administration
+  type: Website
+  note: Full policy lifecycle from a single system — digital underwriting, rating,
+    billing, premium audit, claims, analytics, portals and document generation.
+actions:
+  apisYmlCreated: true
+  openapiHarvested: 4
+  asyncapiCreated: false
+  reason: |
+    Nine API entries were recorded against the real, publicly documented reference
+    categories, with OpenAPI pointers attached only where a harvested specification
+    genuinely corresponds. No AsyncAPI was authored: webhooks exist but Origami Risk
+    publishes no event catalog or channel list, and inventing one would be
+    fabrication. The Quotes and Proposals, Policies, Billing, Actions, Webhooks and
+    Reports entries carry documentation and reference properties only, because those
+    surfaces are documented as hand-authored ReadMe pages with no corresponding
+    machine-readable definition.
