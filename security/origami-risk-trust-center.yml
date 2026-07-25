@@ -1,0 +1,60 @@
+generated: '2026-07-25'
+method: searched
+probe: true
+source: https://trust.origamirisk.com/
+url: https://trust.origamirisk.com/
+platform: Vanta Trust Center
+title: Origami Risk Trust Center
+description: >-
+  Origami Risk publishes a dedicated trust center on its own subdomain,
+  https://trust.origamirisk.com/ (HTTP 200), hosted on Vanta. The report body is
+  rendered client-side from Vanta's API, so the certification list, control set and
+  document library are not readable anonymously from the served HTML — the page shell
+  is all that is retrievable without the live client. No certification names are
+  asserted here that were not verified on an Origami-controlled page.
+certifications: []
+certifications_note: >-
+  Not enumerable from the anonymous fetch. The Vanta trust-report bundle loads its data
+  through an authenticated/JS-driven API; probes of the /api/v2/* paths return the SPA
+  HTML shell. Read the live trust center (or request access through it) for the
+  current certification and document list.
+compliance_claims_verified_on_origami_pages:
+- claim: HIPAA
+  source: https://www.origamirisk.com/solutions/grc/compliance-management/
+- claim: GDPR
+  source: https://www.origamirisk.com/privacy-policy/
+- claim: CCPA
+  source: https://www.origamirisk.com/privacy-policy/
+related_surfaces:
+- type: SLA
+  url: https://www.origamirisk.com/serviceterms/sla/
+  note: >-
+    Contractual 99.9% availability, service credits, and a documented backup regime
+    (15-minute incremental, nightly differential, weekly full, offsite to Amazon S3,
+    six-month weekly retention, periodic restore tests).
+- type: PrivacyPolicy
+  url: https://www.origamirisk.com/privacy-policy/
+- type: TermsOfService
+  url: https://www.origamirisk.com/origami-risk-website-terms-use/
+- type: AIGuidelines
+  url: https://www.origamirisk.com/platform/origami-risk-ai/ai-guidelines/
+- type: AIServiceTerms
+  url: https://www.origamirisk.com/serviceterms/aifeatures/
+evidence:
+- source: https://trust.origamirisk.com/
+  status: 200
+  keywords:
+  - trust center
+  - vanta
+- source: https://www.origamirisk.com/serviceterms/sla/
+  status: 200
+  keywords:
+  - availability requirement
+  - service credits
+  - backup and recovery
+superseded:
+  previous_url: https://www.origamirisk.com/solutions/grc/compliance-management/
+  reason: >-
+    The automated probe first matched a GRC product page (Origami's compliance
+    management SOLUTION for customers), not Origami's own compliance posture. Replaced
+    2026-07-25 with the real first-party trust center.

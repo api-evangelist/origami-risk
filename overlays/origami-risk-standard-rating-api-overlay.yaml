@@ -1,0 +1,66 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for the Origami Risk Standard Rating API
+  version: 1.0.0
+extends: openapi/origami-risk-standard-rating-api-openapi.json
+x-generated: '2026-07-25'
+x-method: generated
+x-source: >-
+  API Evangelist enrichment round 2026-07-25. Captures our corrections and annotations
+  without mutating the harvested definition. The published spec declares a
+  non-production internal host and no operationIds.
+actions:
+- target: $.info
+  update:
+    x-apievangelist-provider: origami-risk
+    x-apievangelist-enriched: '2026-07-25'
+    description: >-
+      Standalone Origami Risk standard rating service. Submit a rating request that
+      references a rater (and optionally a rater version) plus one or more intake
+      payloads, synchronously or asynchronously, then retrieve or cancel the request by
+      id. This is the only one of Origami's four published OpenAPI definitions that
+      carries a complete request/response schema set.
+- target: $.servers
+  description: >-
+    The published server (http://origamirater-standard.dev.dais.com?oas) is a leaked
+    internal development host, not a customer base URL, and is plain HTTP. Flagged
+    rather than replaced — the real per-tenant host is provisioned by Origami.
+  update:
+  - url: http://origamirater-standard.dev.dais.com?oas
+    description: >-
+      AS PUBLISHED — internal development host. Not a production base URL. Do not
+      target this from client code.
+- target: $.paths['/Requests/sync'].post
+  update:
+    operationId: rateSync
+    summary: Submit a rating request synchronously
+    description: >-
+      Returns SyncRatingResponseDto with per-intake ratingResults[]. Individual intake
+      failures are carried inside a 200 response as ratingResults[].errors[], and
+      queueing failures as failedToQueueErrors — a 200 does not guarantee every intake
+      rated.
+- target: $.paths['/Requests/async'].post
+  update:
+    operationId: rateAsync
+    summary: Submit a rating request asynchronously
+    description: >-
+      Returns 202 with a requestId. Poll GET /Requests/{requestId} for the result.
+- target: $.paths['/Requests/{requestId}'].get
+  update:
+    operationId: getRatingRequest
+    summary: Retrieve a submitted rating request by id
+- target: $.paths['/Requests/{requestId}'].delete
+  update:
+    operationId: cancelRatingRequest
+    summary: Cancel a rating request
+- target: $.components.schemas.ProblemDetails
+  update:
+    description: >-
+      ASP.NET Core ProblemDetails (RFC 7807). Served as application/json rather than
+      application/problem+json, and without RFC 9457 type URIs.
+- target: $.components.schemas.StandardRatingRequestDto
+  update:
+    description: >-
+      Rating request. raterId is required; supply intakes either by reference
+      (intakeIds) or inline (intakes). generateWorksheet controls whether a rating
+      worksheet is produced.

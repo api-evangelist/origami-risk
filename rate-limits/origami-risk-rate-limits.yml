@@ -1,0 +1,68 @@
+generated: '2026-07-25'
+method: searched
+source: https://developers.origamirisk.com/reference/limits
+docs:
+- https://developers.origamirisk.com/reference/limits
+- https://developers.origamirisk.com/docs/max-url-limits-on-get-requests
+- https://developers.origamirisk.com/docs/max-request-payload-size-for-any-api-request
+description: >-
+  Origami Risk publishes size and result-set limits rather than a call-rate quota. The
+  limits that apply to a given tenant are discoverable at runtime from
+  GET /AccountInformation/Limits, and the portal notes the returned set varies with
+  Origami configuration — so clients should read them rather than hard-code them.
+runtime_discovery:
+  endpoint: GET /AccountInformation/Limits
+  base_url: https://{environment}.origamirisk.com/OrigamiApi
+  docs: https://developers.origamirisk.com/reference/limits
+  responses:
+  - status: 200
+    description: Successful execution
+rate_limits:
+- name: Maximum Records Per Page
+  limit_count: 100
+  unit: records
+  scope: query response
+  impact: Query responses are paginated at 100 records max.
+  source: https://developers.origamirisk.com/reference/limits
+- name: Maximum Bulk Insert/Upsert
+  limit_count: 25
+  unit: records
+  scope: request
+  impact: Bulk operations limited to 25 records per request.
+  applies_to:
+  - POST /api/{domain}/BulkInsert
+  - POST /api/{domain}/BulkUpsert
+  source: https://developers.origamirisk.com/reference/limits
+- name: Maximum request payload size
+  limit_count: 10
+  unit: megabytes
+  scope: request body
+  impact: >-
+    Regardless of endpoint or HTTP method, the maximum size of any single API request
+    is 10 MB, including uploaded files and structured data. Requests exceeding this
+    limit are rejected with an error response.
+  source: https://developers.origamirisk.com/docs/max-request-payload-size-for-any-api-request
+- name: Maximum URL length
+  limit_count: 10000
+  unit: characters
+  scope: request URL (path + query string)
+  impact: >-
+    Requests exceeding this limit return an error response and may also be rejected or
+    truncated by browsers, proxies or intermediary servers. Documented remedy is to
+    chunk large GET requests into smaller calls.
+  source: https://developers.origamirisk.com/docs/max-url-limits-on-get-requests
+- name: HMAC request freshness window
+  limit_count: 120
+  unit: seconds
+  scope: authentication
+  impact: Requests whose x-api-date is older than 120 seconds are rejected.
+  source: https://developers.origamirisk.com/reference/hmac-authorization
+call_rate:
+  published: false
+  headers: []
+  status_429_documented: false
+  note: >-
+    No requests-per-second or per-minute quota, no 429 contract and no RateLimit-*
+    response headers are documented in the developer portal. Concurrency is instead
+    managed through a Thread Check endpoint (GET /AccountInformation/ThreadCheck) and
+    the queued-action pattern.

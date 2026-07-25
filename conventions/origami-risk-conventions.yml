@@ -1,0 +1,173 @@
+generated: '2026-07-25'
+method: searched
+source: https://developers.origamirisk.com/docs
+docs:
+- https://developers.origamirisk.com/docs/getting-started
+- https://developers.origamirisk.com/docs/setting-the-environment
+- https://developers.origamirisk.com/docs/max-url-limits-on-get-requests
+- https://developers.origamirisk.com/docs/max-request-payload-size-for-any-api-request
+- https://developers.origamirisk.com/reference/limits
+- https://developers.origamirisk.com/reference/authentication-methods
+description: >-
+  Cross-cutting request/response semantics for the Origami Risk platform APIs,
+  captured from the public developer portal guides and reference pages. Origami is a
+  per-tenant .NET REST surface: the host itself is the environment selector, the API
+  is versioned by path segment rather than by header, entity access is generic over
+  configurable "domains", and the platform is unusually explicit that a 200 response
+  does not always mean success.
+transport:
+  protocol: REST/HTTPS
+  media_type: application/json
+  base_urls:
+  - https://{environment}.origamirisk.com/OrigamiApi
+  - https://{environment}.origamirisk.com/OrigamiApi-v2
+  host_is_environment: true
+  note: >-
+    {environment} is a manual placeholder the caller sets; it controls only the
+    subdomain. EU tenants also change the registrable domain to origamiriskeu.com,
+    which the portal's interactive explorer does not substitute. See
+    sandbox/origami-risk-sandbox.yml for the environment matrix.
+authentication:
+  style: bearer-style token in a Token header, obtained from a token endpoint
+  alternatives:
+  - HMAC-SHA1 per-call signing (x-api-key / x-api-date / x-api-signature)
+  cross_client: >-
+    ClientName __CrossClientSessionClient (simple format) or the x-api-clientname
+    header (HMAC) select the client for accounts with cross-client access.
+  artifact: authentication/origami-risk-authentication.yml
+versioning:
+  scheme: uri-path
+  observed_segments:
+  - /OrigamiApi (core surface)
+  - /OrigamiApi-v2 (v2 application surface, carries authentication + queued actions)
+  - /api/... (unversioned core resources — Quotes, Policies, Domains, Reports, Webhooks)
+  - /api/v1/... (realtime actions, e.g. CreateClaimFromIncident)
+  - /api/v2/... (queued actions)
+  header_versioning: false
+  date_versioning: false
+  note: >-
+    Version is expressed only in the path; no version header, no version query
+    parameter and no dated version train is documented.
+idempotency:
+  supported: false
+  header: null
+  note: >-
+    No Idempotency-Key header, no idempotency parameter and no retry-safety contract is
+    documented anywhere in the developer portal or in the four published OpenAPI
+    definitions. Write-side retry safety on Origami is achieved instead through Upsert
+    operations (POST /api/{domain}/Upsert, POST /api/{domain}/BulkUpsert) which are
+    keyed on the caller-supplied record identity, and through the queued-action pattern
+    which returns a queued job the caller polls. Neither is an idempotency-key contract.
+pagination:
+  style: page-limited result sets
+  max_records_per_page: 100
+  discovery_endpoint: GET /AccountInformation/Limits
+  docs: https://developers.origamirisk.com/reference/limits
+  note: >-
+    Domain queries are paginated at a maximum of 100 records per response. The exact
+    limit set is tenant-configurable and should be read at runtime from the Limits
+    endpoint rather than hard-coded.
+bulk:
+  supported: true
+  operations:
+  - POST /api/{domain}/BulkInsert
+  - POST /api/{domain}/BulkUpsert
+  max_records_per_request: 25
+  docs: https://developers.origamirisk.com/reference/limits
+request_limits:
+  max_payload_bytes_note: 10 MB total request body, including uploaded files and structured data
+  max_url_length_chars: 10000
+  url_limit_note: >-
+    Applies to the full path plus query string on GET requests; over-long URLs are
+    rejected and may also be truncated by intermediaries. The documented remedy is to
+    chunk large requests into smaller calls.
+  docs:
+  - https://developers.origamirisk.com/docs/max-request-payload-size-for-any-api-request
+  - https://developers.origamirisk.com/docs/max-url-limits-on-get-requests
+rate_limits:
+  published_rate_limit: false
+  note: >-
+    No requests-per-second/minute quota, no 429 contract and no RateLimit-* response
+    headers are documented. The published "limits" surface is about result-set and
+    payload size, not call rate. See rate-limits/origami-risk-rate-limits.yml.
+  artifact: rate-limits/origami-risk-rate-limits.yml
+error_envelope:
+  primary_shape: >-
+    Domain- and workflow-level failures are returned in the operation's own JSON
+    response body rather than in a uniform error envelope. The Standard Rating API is
+    the exception and returns RFC 7807 ProblemDetails on 400/404.
+  success_status_can_carry_errors: true
+  success_status_note: >-
+    Documented explicitly on multiple endpoints: POST /api/Quotes/Proposals notes "the
+    possibility of receiving a 200 response to denote validation errors", and
+    POST /api/Quotes/Proposals/{proposalId}/Rating/Run catches rating-engine exceptions
+    internally and still returns 200 OK with RatingStatus "E" and the message in
+    RatingErrorMessage. Clients MUST inspect the body, not just the status code.
+  problem_details:
+    used_by: openapi/origami-risk-standard-rating-api-openapi.json
+    schema: ProblemDetails (type, title, status, detail, instance)
+    statuses: [400, 404]
+  artifact: errors/origami-risk-problem-types.yml
+async_patterns:
+  queued_actions:
+    pattern: POST /api/v2/Actions/Queue/{action}/{domain}/{id}
+    note: >-
+      Every platform action has a queued form; the call enqueues work rather than
+      executing it inline.
+  queued_rating:
+    run: POST /api/Quotes/Proposals/{proposalId}/Rating/RunOptions
+    queue: POST /api/Quotes/Proposals/{proposalId}/Rating/Queue
+    poll: GET /api/Quotes/Proposals/{proposalId}/Rating/Status
+  queued_bind:
+    run: POST /api/Quotes/Proposals/{proposalId}/BindQuote
+    queue: POST /api/Quotes/Proposals/{proposalId}/QueueBindQuote
+    poll: GET /api/Quotes/Proposals/{proposalId}/BindStatus
+  queued_validations:
+    run: POST /api/Quotes/Proposals/{proposalId}/Validations/Run
+    queue: POST /api/Quotes/Proposals/{proposalId}/Validations/Queue
+    poll: GET /api/Quotes/Proposals/{proposalId}/Validations/Status
+  standard_rating_service:
+    sync: POST /Requests/sync
+    async: POST /Requests/async
+    poll: GET /Requests/{requestId}
+    cancel: DELETE /Requests/{requestId}
+    source: openapi/origami-risk-standard-rating-api-openapi.json
+  note: >-
+    The sync/async pair plus a status poll is the dominant long-running-work
+    convention across the platform. Synchronous rating is documented as liable to
+    exceed the request timeout, and pairing it with status polling is the recommended
+    pattern.
+resource_model:
+  generic_domains: true
+  note: >-
+    Most entity access is generic over a configurable "domain" path segment
+    (/api/{domain}, /api/{domain}/Upsert, /api/{domain}/{id}/Notes …), with the
+    per-tenant field set discoverable at runtime via the metadata surface
+    (GET /api/Metadata/Domains/{domain}/DataDictionary, /InputSample,
+    /ScreenConfiguration, GET /api/Domains). New tenant fields therefore appear
+    without an API change — read the data dictionary rather than hard-coding fields.
+  artifact: data-model/origami-risk-data-model.yml
+query_filters:
+  style: proprietary view-filter string with a JSON tree equivalent
+  validate: GET /api/{domain}/Query (filter validation) and GET /api/Reports/{id}/ValiateFilter
+  convert:
+  - GET /api/Reports/ViewFilterStringToJsonTree
+  - POST /api/Reports/JsonTreeToViewFilterString
+  human_readable: GET /api/{domain}/Filters/ReadableText
+  note: >-
+    Origami publishes explicit filter-syntax validation and string↔JSON-tree
+    conversion endpoints rather than a standard query language such as OData.
+request_tracing:
+  request_id_header: null
+  note: No correlation/request-id header is documented. The portal shows per-key "Recent
+    Requests" history only to logged-in portal users.
+metadata_and_expansion:
+  sparse_fields: false
+  expansion: false
+  note: >-
+    No sparse-fieldset or expansion syntax is documented. Related records are reached
+    through explicit sub-resources (/Notes, /Emails, /Files, /Link/Query) and through
+    the coverage/schedule sub-resources on a proposal.
+webhooks:
+  direction: inbound (external system -> Origami handler)
+  artifact: asyncapi/origami-risk-webhooks.yml

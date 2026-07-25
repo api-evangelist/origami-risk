@@ -1,0 +1,110 @@
+generated: '2026-07-25'
+method: searched
+source: https://developers.origamirisk.com/docs/setting-the-environment
+docs:
+- https://developers.origamirisk.com/docs/setting-the-environment
+- https://developers.origamirisk.com/docs/getting-started
+description: >-
+  Origami Risk separates test from production by HOST, not by key prefix or mode flag.
+  The {environment} placeholder in every base URL is the subdomain selector, and the
+  developer portal's interactive explorer lets you set it per session. There is no
+  shared public sandbox, no test-tenant self-signup and no published test data: a
+  staging environment is provisioned for a client alongside their production tenant,
+  and credentials for either require an Origami account. Nothing below is invented —
+  the environment matrix is published verbatim on the portal.
+self_serve_sandbox: false
+test_credentials_published: false
+test_data_published: false
+separation_model:
+  style: per-environment host
+  pattern: https://{environment}.origamirisk.com/OrigamiApi
+  note: >-
+    The {environment} value is a manual placeholder the caller must set explicitly; it
+    controls only the subdomain. The value is "sticky" for the remainder of a portal
+    session and can be changed at any time by clicking it.
+environments:
+- name: Pre-Production
+  value: preprod
+  tld: origamirisk.com
+  base_url: https://preprod.origamirisk.com/OrigamiApi/
+  purpose: Final validation before production deployment.
+  region: US
+- name: US Staging
+  value: staging
+  tld: origamirisk.com
+  base_url: https://staging.origamirisk.com/OrigamiApi/
+  purpose: US staging for release candidates and client UAT.
+  region: US
+- name: US Production
+  value: live
+  tld: origamirisk.com
+  base_url: https://live.origamirisk.com/OrigamiApi/
+  purpose: US production environment.
+  region: US
+- name: Gov Staging
+  value: staging-gov
+  tld: origamirisk.com
+  base_url: https://staging-gov.origamirisk.com/OrigamiApi/
+  purpose: US Government staging environment.
+  region: US-Gov
+- name: Gov Production
+  value: live-gov
+  tld: origamirisk.com
+  base_url: https://live-gov.origamirisk.com/OrigamiApi/
+  purpose: US Government production environment.
+  region: US-Gov
+- name: EU Staging
+  value: staging
+  tld: origamiriskeu.com
+  base_url: https://staging.origamiriskeu.com/OrigamiApi/
+  purpose: EU staging for release candidates and client UAT.
+  region: EU
+- name: EU Production
+  value: live
+  tld: origamiriskeu.com
+  base_url: https://live.origamiriskeu.com/OrigamiApi/
+  purpose: EU production environment.
+  region: EU
+eu_caveat: >-
+  EU environments change the registrable domain, not just the subdomain. The
+  interactive API explorer and its generated code samples substitute only the
+  {environment} subdomain and will not switch origamirisk.com to origamiriskeu.com, so
+  EU requests cannot be executed from the explorer without editing the base URL. The
+  documented workflow is to build the request in the explorer, copy the generated code
+  sample, rewrite the host, then execute it with curl, Postman or any HTTP client.
+console:
+  interactive_explorer: true
+  url: https://developers.origamirisk.com/reference
+  platform: ReadMe
+  languages_generated:
+  - Shell
+  - Node
+  - Ruby
+  - PHP
+  - Python
+  note: >-
+    Every reference page carries a "Try It!" console with a credentials panel (Token
+    header) and generated code samples. Executing a call still requires a real token
+    against a real environment.
+sla_note: >-
+  The 99.9% availability requirement in Origami's SLA applies only to the production
+  environment and explicitly not to staging.
+safety_controls:
+- name: fireEvents
+  applies_to: domain create/update operations (e.g. POST /api/{domain}/BulkInsert)
+  default: false
+  description: >-
+    Controls whether writing a domain record triggers Origami's system events and Data
+    Entry Events. Set false to load data without firing external workflows — the
+    platform's main guard when populating a non-production environment.
+  source: https://developers.origamirisk.com/reference/post-api-domain-bulkinsert
+- name: ThreadCheck
+  endpoint: GET /AccountInformation/ThreadCheck
+  description: >-
+    Returns ThreadPool worker/IO thread minimums, maximums and availability so a caller
+    can gauge load on the environment before driving volume through it.
+  source: https://developers.origamirisk.com/reference/thread-check
+- name: Ping
+  endpoint: GET /Authentication/Ping
+  description: Availability probe for the selected environment.
+  source: https://developers.origamirisk.com/reference/ping

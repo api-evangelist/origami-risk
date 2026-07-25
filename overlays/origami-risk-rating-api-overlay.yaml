@@ -1,0 +1,34 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for the Origami Risk Rating API scaffold
+  version: 1.0.0
+extends: openapi/origami-risk-rating-api-openapi.json
+x-generated: '2026-07-25'
+x-method: generated
+x-source: >-
+  API Evangelist enrichment round 2026-07-25. This registered definition contains a
+  single untouched ReadMe placeholder operation. The overlay records that fact and
+  points at the substantive sibling definition rather than inventing content.
+actions:
+- target: $.info
+  update:
+    x-apievangelist-provider: origami-risk
+    x-apievangelist-enriched: '2026-07-25'
+    x-apievangelist-spec-quality: placeholder
+    x-apievangelist-supersededBy: openapi/origami-risk-standard-rating-api-openapi.json
+    description: >-
+      Empty "Rating API" registration — one placeholder path, no schemas. The real
+      rating contract is openapi/origami-risk-standard-rating-api-openapi.json, and the
+      proposal-side rating operations are documented at
+      https://developers.origamirisk.com/reference/post-api-quotes-proposals-proposalid-rating-runoptions.
+- target: $.servers
+  description: >-
+    The declared server is the same internal development host as the standard rating
+    definition and is plain HTTP. Not a customer base URL.
+  update:
+  - url: http://origamirater-standard.dev.dais.com
+    description: 'AS PUBLISHED — internal development host, not a production base URL.'
+- target: $.paths['/new-endpoint'].get
+  update:
+    deprecated: true
+    summary: 'PLACEHOLDER — ReadMe API Designer sample operation, not a real endpoint'

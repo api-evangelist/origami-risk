@@ -1,0 +1,94 @@
+generated: '2026-07-25'
+method: searched
+source: https://developers.origamirisk.com/reference/webhooks
+spec_type: none
+asyncapi_published: false
+description: >-
+  Origami Risk publishes no AsyncAPI document, no event catalog and no outbound
+  event-subscription surface. What it calls "webhooks" runs the other way: an Origami
+  Webhook Handler is a custom endpoint built inside Origami by the services team that
+  an EXTERNAL system posts data into. The platform additionally exposes three inbound
+  payment callbacks that the One Inc payment gateway calls. This artifact records that
+  real, documented webhook surface and its direction; nothing here is an outbound
+  event feed, and none was invented.
+direction: inbound (external system -> Origami)
+outbound_events:
+  published: false
+  subscription_api: false
+  signing: not documented
+  retry_policy: not documented
+  note: >-
+    No outbound webhook registration endpoint, no event type catalog, no signature
+    verification scheme and no delivery/retry semantics are documented. The only
+    outbound-ish signal in the platform is the fireEvents query parameter on domain
+    writes, which controls whether a create/update triggers Origami's internal system
+    events and Data Entry Events — an in-platform workflow trigger, not an HTTP
+    callback to the caller.
+surfaces:
+- name: Custom webhook handlers
+  docs: https://developers.origamirisk.com/reference/webhooks
+  base_url: https://{environment}.origamirisk.com/OrigamiApi
+  provisioning: >-
+    Handlers are bespoke endpoints developed by the Origami services team for a
+    specific tenant workflow; they must be configured and active before use. There is
+    no self-serve handler creation API.
+  operations:
+  - operation: GET /api/Webhook/GetHandlers
+    title: List Available Webhook Handlers
+    docs: https://developers.origamirisk.com/reference/get-api-webhook-get-handlers
+    description: Returns the list of webhook handlers configured for your account.
+    responses: [200]
+  - operation: GET /api/Webhook/{name}/GetSample
+    title: Get Webhook Sample Payload (Request & Response)
+    docs: https://developers.origamirisk.com/reference/get-api-webhook-name-get-sample
+    description: >-
+      Returns RequestSample and ResponseSample for a named handler — the closest thing
+      Origami publishes to a machine-readable schema for the event payload. The {name}
+      path parameter must not contain spaces; handler names with spaces or special
+      characters will almost always produce a 500 runtime error.
+    responses: [200, 500]
+  - operation: POST /api/Webhook/{name}
+    title: Deliver a Payload of Data to a Custom Webhook for Processing
+    docs: https://developers.origamirisk.com/reference/post-api-webhook-name
+    description: >-
+      Sends data to a pre-configured custom webhook destination. {name} corresponds to
+      the "Name" field returned by /api/Webhook/GetHandlers. The request body must match
+      the handler's expected schema; the response body varies per handler.
+    responses: [200]
+- name: One Inc payment gateway callbacks
+  docs: https://developers.origamirisk.com/reference/one-inc-webhooks
+  base_url: https://{environment}.origamirisk.com/OrigamiApi
+  direction: inbound (One Inc -> Origami)
+  note: >-
+    "All three are called BY OneInc — Origami never calls them itself." Two independent
+    workflows share the gateway: a payout flow (send money to a broker or customer via
+    ACH) and an autopay-enrolment flow.
+  operations:
+  - operation: POST /api/OnlinePolicyPayment/OneIncAcknowledgePaymentMethod
+    title: Payment Acknowledgement of One Inc Payment
+    flow: payout
+    trigger: Customer submitted bank account details
+    docs: https://developers.origamirisk.com/reference/post-api-onlinepolicypayment-oneincacknowledgepaymentmethod
+  - operation: POST /api/OnlinePolicyPayment/OneIncPaymentFeedback
+    title: Payment Feedback from One Inc
+    flow: payout
+    trigger: Payment status changed (issued, completed, failed, voided)
+    docs: https://developers.origamirisk.com/reference/post-api-onlinepolicypayment-oneincpaymentfeedback
+  - operation: POST /api/OnlinePolicyPayment/OneIncManageAutoPayFeedback
+    title: AutoPayment Feedback from One Inc
+    flow: autopay
+    trigger: Customer enrolled in or cancelled autopay
+    docs: https://developers.origamirisk.com/reference/post-api-onlinepolicypayment-oneincmanageautopayfeedback
+related:
+  status_change_events:
+    note: >-
+      POST /api/Policies/{proposalID}/Accept is documented as logging the action to the
+      workflow log and firing a status change event. That event is internal to Origami's
+      workflow engine; no external delivery contract is published for it.
+    source: https://developers.origamirisk.com/reference/post-api-policies-proposalid-accept
+gaps:
+- No AsyncAPI 2.x/3.x document is published anywhere on the developer portal, the
+  marketing site or the (empty) github.com/origamirisk organisation.
+- No event type registry, no channel list, no message schemas beyond the per-handler
+  GetSample response.
+- No webhook signature/verification scheme is documented for inbound handlers.

@@ -1,0 +1,46 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for the Origami Risk Authentication API
+  version: 1.0.0
+extends: openapi/origami-risk-authentication-openapi.json
+x-generated: '2026-07-25'
+x-method: generated
+x-source: >-
+  API Evangelist enrichment round 2026-07-25. Annotates the published authentication
+  scaffold with the real token surface documented at
+  https://developers.origamirisk.com/reference/authentication-methods.
+actions:
+- target: $.info
+  update:
+    x-apievangelist-provider: origami-risk
+    x-apievangelist-enriched: '2026-07-25'
+    x-apievangelist-spec-quality: scaffold
+    description: >-
+      Origami Risk authentication surface on the /OrigamiApi-v2 host. The published
+      definition omits the OAuth-format token endpoint (POST /Authentication/AuthenticateOAuth)
+      and the HMAC signing scheme, and still carries a path literally named
+      "Authenticate-DELETEME". The authoritative description is
+      authentication/origami-risk-authentication.yml.
+- target: $.paths['/Authentication/HasTokenExpired'].get
+  update:
+    operationId: hasTokenExpired
+    summary: Check whether the current API token has expired
+    externalDocs:
+      url: https://developers.origamirisk.com/reference/check-if-api-token-has-expired
+- target: $.paths['/Authentication/Ping'].get
+  update:
+    operationId: ping
+    summary: API availability ping
+    externalDocs:
+      url: https://developers.origamirisk.com/reference/ping
+- target: $.paths['/Authentication/Authenticate-DELETEME'].post
+  update:
+    deprecated: true
+    operationId: authenticateDeleteMe
+    summary: 'STALE PATH — the live token endpoint is POST /Authentication/Authenticate'
+    description: >-
+      Shipped in the published definition with a placeholder name. The documented
+      endpoints are POST /Authentication/Authenticate (simple format) and
+      POST /Authentication/AuthenticateOAuth (client_credentials format).
+    externalDocs:
+      url: https://developers.origamirisk.com/reference/api-token-simple

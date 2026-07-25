@@ -1,0 +1,54 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for the Origami Risk Public API
+  version: 1.0.0
+extends: openapi/origami-risk-public-api-openapi.json
+x-generated: '2026-07-25'
+x-method: generated
+x-source: >-
+  API Evangelist enrichment round 2026-07-25. The published definition is a ReadMe API
+  Designer scaffold — two of its four paths are untouched placeholders. This overlay
+  records that state and annotates the two real operations, without mutating the
+  harvested file.
+actions:
+- target: $.info
+  update:
+    x-apievangelist-provider: origami-risk
+    x-apievangelist-enriched: '2026-07-25'
+    x-apievangelist-spec-quality: scaffold
+    description: >-
+      Registered "Origami Risk Public API" definition. It covers 4 paths against roughly
+      180 operations documented as hand-authored reference pages at
+      https://developers.origamirisk.com/reference — the machine-readable definition is
+      not representative of the surface. Treat the reference, and the tenant's own
+      metadata endpoints (GET /api/Domains, GET /api/Metadata/Domains/{domain}/DataDictionary),
+      as the authoritative contract.
+- target: $.paths['/new-endpoint'].get
+  update:
+    deprecated: true
+    summary: 'PLACEHOLDER — ReadMe API Designer sample operation, not a real endpoint'
+- target: $.paths['/new-endpoint-1'].get
+  update:
+    deprecated: true
+    summary: 'PLACEHOLDER — ReadMe API Designer sample operation, not a real endpoint'
+- target: $.paths['/HasTokenExpired'].get
+  update:
+    operationId: hasTokenExpired
+    summary: Check whether the current API token has expired
+    externalDocs:
+      url: https://developers.origamirisk.com/reference/check-if-api-token-has-expired
+- target: $.paths['/Authentication/Authenticate'].post
+  update:
+    operationId: authenticate
+    summary: Request an API token using the simple Account/User/Password/ClientName payload
+    description: >-
+      Returns a token to present in the Token header on subsequent calls. Pass
+      ClientName __CrossClientSessionClient to scope the token to every client the user
+      can access. 401 on invalid credentials.
+    externalDocs:
+      url: https://developers.origamirisk.com/reference/api-token-simple
+- target: $.components.securitySchemes.ApiKeyAuth
+  update:
+    description: >-
+      Token issued by an Authenticate call, presented in the Token request header. See
+      authentication/origami-risk-authentication.yml for the HMAC alternative.

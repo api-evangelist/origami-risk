@@ -1,0 +1,98 @@
+generated: '2026-07-25'
+method: searched
+source: https://www.origamirisk.com/serviceterms/sla/
+docs:
+- https://www.origamirisk.com/serviceterms/sla/
+- https://developers.origamirisk.com/docs/beta-notification
+- https://www.origamirisk.com/platform/product-updates/
+description: >-
+  Origami Risk ships the platform on a seasonal release train (Summer / Spring /
+  Winter), publishes a contractual SLA with a 99.9% availability requirement and
+  service credits, and runs a client-authenticated status page. API versioning is by
+  path segment only. There is no published API deprecation policy document, but
+  individual endpoints do carry in-reference deprecation notices naming their
+  replacement, and the developer portal itself is labelled Beta.
+versioning:
+  scheme: uri-path
+  current:
+  - /OrigamiApi (core)
+  - /OrigamiApi-v2 (v2 application surface)
+  - /api/v1/Actions (realtime actions)
+  - /api/v2/Actions/Queue (queued actions)
+  header_versioning: false
+  policy_url: null
+  note: No written API version-support or version-retirement policy is published.
+deprecation:
+  policy_url: null
+  sunset_header: false
+  deprecation_header: false
+  in_reference_notices: true
+  note: >-
+    No RFC 8594 Sunset/Deprecation header support and no deprecation policy page were
+    found. Deprecation is communicated inside the reference page for the affected
+    endpoint, which marks the operation "deprecated" and names the replacement.
+deprecated_operations:
+- operation: POST /api/Quotes/Proposals/{proposalId}/Rating/Run
+  label: Run Proposal Rating (Legacy)
+  replacement: POST /api/Quotes/Proposals/{proposalId}/Rating/RunOptions
+  notice: >-
+    "This endpoint is kept for backward compatibility. Use POST .../Rating/RunOptions
+    for new integrations."
+  source: https://developers.origamirisk.com/reference/post-api-quotes-proposals-proposalid-rating-run
+- operation: POST /Authentication/Authenticate-DELETEME
+  label: placeholder path left in the published Authentication OpenAPI
+  replacement: POST /Authentication/Authenticate
+  notice: >-
+    Not a formal deprecation — a stale path name shipped in the published spec
+    (openapi/origami-risk-authentication-openapi.json).
+  source: openapi/origami-risk-authentication-openapi.json
+sla:
+  url: https://www.origamirisk.com/serviceterms/sla/
+  uptime_target: 99.9%
+  measurement_window: calendar month
+  applies_to: production environment only (explicitly not the staging environment)
+  maintenance_window: >-
+    Normally scheduled between 8:00 PM and 1:00 AM Central Time, with an aim for
+    weekends; clients notified at least 24 hours in advance.
+  service_credits: >-
+    Pro-rated credit of one full day of affected services (1/30 of the monthly fee) per
+    day of Service Level Failure, applied to the next annual invoice, capped at 100% of
+    that month's license fees. Client must claim in writing within seven business days
+    after the calendar month.
+  backup_and_recovery:
+    incremental: every 15 minutes
+    differential: nightly
+    full: weekly
+    offsite: Amazon S3
+    retention: weekly backups retained a minimum of six months
+    restore_testing: periodic database restore tests
+  incident_severity_levels:
+  - {level: 0, name: Outage, definition: The Service is fully down and unavailable}
+  - {level: 1, name: Critical, definition: Essential Service functionality impaired (per SLA Table 1)}
+  support_email: support@origamirisk.com
+  support_note: >-
+    P0/P1 incidents should be submitted through Origami's case-management portal; the
+    support email with "Urgent" in the subject is the fallback. Response commitments
+    apply 7:00 AM - 7:00 PM Central Time.
+status_page:
+  url: https://status.origamirisk.com/
+  authenticated: true
+  note: >-
+    Referenced in the SLA as the place "any user of the Service can visit to view the
+    current system status", but the page requires an account — "To request an account,
+    please contact your Client Executive." Subscription options for Emergency (outage)
+    and Maintenance notifications are offered to each user of the Service.
+release_train:
+  cadence: seasonal
+  url: https://www.origamirisk.com/platform/product-updates/
+  recent:
+  - Summer 2026
+  - Spring 2026
+  - Winter 2025
+  artifact: changelog/origami-risk-changelog.yml
+maturity:
+  developer_portal: beta
+  beta_notice: >-
+    "The Origami Developers Portal is currently in Beta. Features and documentation may
+    evolve throughout Q3 of 2026 as we continue to rapidly enhance the experience."
+  source: https://developers.origamirisk.com/docs/beta-notification

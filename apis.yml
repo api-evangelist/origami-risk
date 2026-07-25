@@ -60,6 +60,10 @@ apis:
     url: https://developers.origamirisk.com/reference/authentication-methods
   - type: OpenAPI
     url: openapi/origami-risk-authentication-openapi.json
+  - type: Overlay
+    url: overlays/origami-risk-authentication-overlay.yaml
+  - type: Authentication
+    url: authentication/origami-risk-authentication.yml
 - aid: origami-risk:origami-risk-public-api
   name: Origami Risk Public API
   description: The core Origami Risk platform API — generic domain and entity CRUD
@@ -81,6 +85,13 @@ apis:
     url: https://developers.origamirisk.com/reference/domains-entities
   - type: OpenAPI
     url: openapi/origami-risk-public-api-openapi.json
+  - type: Overlay
+    url: overlays/origami-risk-public-api-overlay.yaml
+  - type: DataModel
+    url: data-model/origami-risk-data-model.yml
+  - type: AgentSkill
+    url: skills/origami-risk-domain-data-access.md
+    name: Read and write Origami Risk domain data safely
 - aid: origami-risk:origami-risk-standard-rating-api
   name: Origami Risk Standard Rating API
   description: Standalone standard rating service that accepts a rating request
@@ -99,6 +110,15 @@ apis:
     url: openapi/origami-risk-standard-rating-api-openapi.json
   - type: OpenAPI
     url: openapi/origami-risk-rating-api-openapi.json
+  - type: Overlay
+    url: overlays/origami-risk-standard-rating-api-overlay.yaml
+  - type: Overlay
+    url: overlays/origami-risk-rating-api-overlay.yaml
+  - type: ErrorCatalog
+    url: errors/origami-risk-problem-types.yml
+  - type: AgentSkill
+    url: skills/origami-risk-standard-rating-service.md
+    name: Submit a rating request to the Origami Risk Standard Rating service
 - aid: origami-risk:origami-risk-quotes-and-proposals-api
   name: Origami Risk Quotes and Proposals API
   description: Quote-side policy lifecycle — create and patch proposals, add and
@@ -118,6 +138,9 @@ apis:
     url: https://developers.origamirisk.com/docs
   - type: APIReference
     url: https://developers.origamirisk.com/reference/quotes-and-proposals
+  - type: AgentSkill
+    url: skills/origami-risk-quote-to-bind.md
+    name: Quote a risk and bind it into a policy on Origami Risk
 - aid: origami-risk:origami-risk-policies-api
   name: Origami Risk Policies API
   description: Issue-side policy administration — accept, reject, undo-accept,
@@ -135,6 +158,9 @@ apis:
     url: https://developers.origamirisk.com/docs
   - type: APIReference
     url: https://developers.origamirisk.com/reference/policies
+  - type: AgentSkill
+    url: skills/origami-risk-issue-and-service-policy.md
+    name: Issue and service a policy on Origami Risk
 - aid: origami-risk:origami-risk-billing-accounts-api
   name: Origami Risk Billing and Payments API
   description: Billing account operations including making and reversing payments,
@@ -171,12 +197,19 @@ apis:
     url: https://developers.origamirisk.com/docs
   - type: APIReference
     url: https://developers.origamirisk.com/reference/actions
+  - type: AgentSkill
+    url: skills/origami-risk-fnol-claim-from-incident.md
+    name: Create a claim from an incident (FNOL) on Origami Risk
 - aid: origami-risk:origami-risk-webhooks-api
   name: Origami Risk Webhooks API
-  description: Outbound event delivery for the Origami Risk platform — list the
-    configured webhook handlers, retrieve a sample payload for a named handler, and
-    post to a named webhook. A separate One Inc webhook surface handles payment
-    gateway callbacks. No AsyncAPI document or standalone event catalog is published.
+  description: Inbound webhook surface for the Origami Risk platform. An Origami
+    "webhook handler" is a bespoke endpoint built inside Origami by the services team
+    that an external system posts data into — list the configured handlers, retrieve a
+    named handler's request and response sample schema, and post a payload to it. A
+    separate One Inc surface receives payment-gateway callbacks (payment method
+    acknowledgement, payment feedback, autopay feedback), all called by One Inc into
+    Origami. There is no outbound event subscription, no event catalog and no AsyncAPI
+    document.
   humanURL: https://developers.origamirisk.com/reference/webhooks
   baseURL: https://{environment}.origamirisk.com/OrigamiApi
   tags:
@@ -187,6 +220,8 @@ apis:
     url: https://developers.origamirisk.com/docs
   - type: APIReference
     url: https://developers.origamirisk.com/reference/webhooks
+  - type: Webhooks
+    url: asyncapi/origami-risk-webhooks.yml
 - aid: origami-risk:origami-risk-reports-api
   name: Origami Risk Reports API
   description: Reporting surface for requesting a report run, retrieving report
@@ -203,6 +238,54 @@ apis:
   - type: APIReference
     url: https://developers.origamirisk.com/reference/reports
 common:
+- type: TrustCenter
+  url: security/origami-risk-trust-center.yml
+- type: Compliance
+  url: https://trust.origamirisk.com/
+  name: Origami Risk Trust Center (Vanta)
+- type: DomainSecurity
+  url: security/origami-risk-domain-security.yml
+- type: Authentication
+  url: authentication/origami-risk-authentication.yml
+- type: Conventions
+  url: conventions/origami-risk-conventions.yml
+- type: ErrorCatalog
+  url: errors/origami-risk-problem-types.yml
+- type: RateLimits
+  url: rate-limits/origami-risk-rate-limits.yml
+  name: Published limits and the runtime limits endpoint
+- type: Lifecycle
+  url: lifecycle/origami-risk-lifecycle.yml
+- type: StatusPage
+  url: https://status.origamirisk.com/
+  name: Origami Risk system status (client authenticated)
+- type: SLA
+  url: https://www.origamirisk.com/serviceterms/sla/
+  name: Service Level Agreement — 99.9% availability
+- type: ChangeLog
+  url: changelog/origami-risk-changelog.yml
+- type: ChangeLog
+  url: https://www.origamirisk.com/platform/product-updates/
+  name: Product Updates (seasonal release train)
+- type: Sandbox
+  url: sandbox/origami-risk-sandbox.yml
+  name: Environment matrix (preprod / staging / live, US, Gov and EU)
+- type: Conformance
+  url: conformance/origami-risk-conformance.yml
+- type: DataModel
+  url: data-model/origami-risk-data-model.yml
+- type: Webhooks
+  url: asyncapi/origami-risk-webhooks.yml
+- type: Packages
+  url: packages/origami-risk-packages.yml
+- type: MCPServer
+  url: mcp/origami-risk-mcp.yml
+  name: Candidate MCP tool list (no official server published)
+- type: LLMsTxt
+  url: llms/origami-risk-llms.txt
+- type: AgentSkill
+  url: skills/_index.yml
+  name: Origami Risk agent skills
 - type: Website
   url: https://www.origamirisk.com/
 - type: DeveloperPortal
@@ -221,6 +304,24 @@ common:
   url: https://www.origamirisk.com/platform/api-access/
 - type: Partners
   url: https://www.origamirisk.com/partners/
+- type: Login
+  url: https://developers.origamirisk.com/login?redirect_uri=/
+  name: Developer portal login
+- type: Support
+  url: https://www.origamirisk.com/contact/
+  name: Contact (support@origamirisk.com for P0/P1 incidents)
+- type: Blog
+  url: https://www.origamirisk.com/resources/insights/
+- type: Pricing
+  url: https://www.origamirisk.com/serviceterms/aipricing/
+  name: Origami AI Pricing Schedule (token consumption model)
+- type: TermsOfService
+  url: https://www.origamirisk.com/origami-risk-website-terms-use/
+- type: PrivacyPolicy
+  url: https://www.origamirisk.com/privacy-policy/
+- type: GitHubOrganization
+  url: https://github.com/origamirisk
+  name: Origami Risk LLC on GitHub (no public repositories)
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com

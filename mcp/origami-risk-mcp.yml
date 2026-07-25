@@ -1,0 +1,212 @@
+generated: '2026-07-25'
+method: derived
+status: candidate
+source: >-
+  https://developers.origamirisk.com/reference,
+  openapi/origami-risk-standard-rating-api-openapi.json
+notes: >-
+  No official hosted or local Origami Risk MCP server was found — nothing on the
+  developer portal, the marketing site, npm, PyPI, the (empty) github.com/origamirisk
+  organisation or the public MCP registries. The tool list below is a CANDIDATE derived
+  from operations Origami genuinely documents; every source_operation is a real,
+  published endpoint. Input schemas would have to be read from the tenant's own
+  metadata surface, because the published OpenAPI covers only 11 of roughly 180
+  documented operations.
+server:
+  name: origami-risk
+  transport: http
+  url: null
+  auth:
+    scheme: Token header (see authentication/origami-risk-authentication.yml)
+    note: >-
+      Any MCP server for Origami is inherently per-tenant — the base URL itself carries
+      the environment ({environment}.origamirisk.com) and credentials are provisioned
+      per account/client/user.
+tools:
+- name: ping_api
+  description: Check Origami API availability for the selected environment.
+  source_operation: GET /Authentication/Ping
+  docs: https://developers.origamirisk.com/reference/ping
+- name: get_token
+  description: Request an API token using the simple Account/User/Password/ClientName payload.
+  source_operation: POST /Authentication/Authenticate
+  docs: https://developers.origamirisk.com/reference/api-token-simple
+- name: has_token_expired
+  description: Check whether the current API token has expired.
+  source_operation: GET /Authentication/HasTokenExpired
+  docs: https://developers.origamirisk.com/reference/check-if-api-token-has-expired
+- name: get_account_limits
+  description: Read the system limits configured for the account (page size, bulk caps).
+  source_operation: GET /AccountInformation/Limits
+  docs: https://developers.origamirisk.com/reference/limits
+- name: list_domains
+  description: List every domain (record type) configured in the tenant.
+  source_operation: GET /api/Domains
+  docs: https://developers.origamirisk.com/reference/get-api-domains
+- name: get_domain_data_dictionary
+  description: Retrieve the data dictionary for a domain — the tenant's field-level contract.
+  source_operation: GET /api/Metadata/Domains/{domain}/DataDictionary
+  docs: https://developers.origamirisk.com/reference/get-api-metadata-domains-domain-datadictionary
+- name: get_domain_input_sample
+  description: Retrieve a sample input object for a domain.
+  source_operation: GET /api/Metadata/Domains/{domain}/InputSample
+  docs: https://developers.origamirisk.com/reference/get-api-metadata-domains-domain-inputsample
+- name: query_domain_records
+  description: Query records from a domain with a column list and filter.
+  source_operation: GET /api/{domain}/Query
+  docs: https://developers.origamirisk.com/reference/get-domain-query
+- name: validate_domain_filter
+  description: Validate domain query filter syntax before running a query.
+  source_operation: GET /api/{domain}/Query (filter validation)
+  docs: https://developers.origamirisk.com/reference/domain-query-validate-filter-syntax
+- name: get_domain_record
+  description: Get a single record from a domain by id.
+  source_operation: GET /api/{domain}/{id}
+  docs: https://developers.origamirisk.com/reference/get-a-single-record-from-a-domain
+- name: create_domain_record
+  description: Create a new record for a domain.
+  source_operation: POST /api/{domain}
+  docs: https://developers.origamirisk.com/reference/post-api-domain
+- name: upsert_domain_record
+  description: Create or edit a domain record in one call.
+  source_operation: POST /api/{domain}/Upsert
+  docs: https://developers.origamirisk.com/reference/post-api-domain-upsert
+- name: bulk_upsert_domain_records
+  description: Create or update multiple domain records (max 25 per call by default).
+  source_operation: POST /api/{domain}/BulkUpsert
+  docs: https://developers.origamirisk.com/reference/post-api-domain-bulkupsert
+- name: add_domain_note
+  description: Create a note associated with a domain record.
+  source_operation: POST /api/{domain}/{id}/Notes
+  docs: https://developers.origamirisk.com/reference/post-api-domain-id-notes
+- name: list_quote_states
+  description: List applicable quote states.
+  source_operation: GET /api/Quotes/Lookups/States
+  docs: https://developers.origamirisk.com/reference/get-api-quotes-lookups-states
+- name: list_program_policy_lines
+  description: List the policy lines associated with an insurance program.
+  source_operation: GET /api/Quotes/InsurancePrograms/{insuranceProgramId}/ListPolicyLines
+  docs: https://developers.origamirisk.com/reference/get-api-quotes-insuranceprograms-insuranceprogramid-listpolicylines
+- name: list_program_carriers
+  description: List participating carriers for a program.
+  source_operation: GET /api/Quotes/InsurancePrograms/{insuranceProgramsId}/ListCarriers
+  docs: https://developers.origamirisk.com/reference/get-api-quotes-insuranceprograms-insuranceprogramsid-listcarriers
+- name: create_proposal
+  description: Create a proposal (quote) record, optionally attaching lines of business.
+  source_operation: POST /api/Quotes/Proposals
+  docs: https://developers.origamirisk.com/reference/post-api-quotes-proposals
+- name: get_proposal
+  description: Get proposal details.
+  source_operation: GET /api/Quotes/Proposals/{id}
+  docs: https://developers.origamirisk.com/reference/get-api-quotes-proposals-id
+- name: update_proposal
+  description: Patch a proposal.
+  source_operation: PATCH /api/Quotes/Proposals/{id}
+  docs: https://developers.origamirisk.com/reference/patch-api-quotes-proposals-id
+- name: add_proposal_coverage
+  description: Add a coverage to a proposal.
+  source_operation: POST /api/Quotes/Proposals/{proposalId}/ProposalCoverage
+  docs: https://developers.origamirisk.com/reference/post-api-quotes-proposals-proposalid-proposalcoverage
+- name: add_proposal_schedule_item
+  description: Add an item to a proposal's schedule for a domain.
+  source_operation: POST /api/Quotes/Proposals/{proposalId}/Schedules/{domain}
+  docs: https://developers.origamirisk.com/reference/post-api-quotes-proposals-proposalid-schedules-domain
+- name: run_proposal_validations
+  description: Run synchronous validations on a proposal.
+  source_operation: POST /api/Quotes/Proposals/{proposalId}/Validations/Run
+  docs: https://developers.origamirisk.com/reference/post-api-quotes-proposals-proposalid-validations-run
+- name: run_proposal_rating
+  description: Run rating for a proposal with options (the supported replacement for Rating/Run).
+  source_operation: POST /api/Quotes/Proposals/{proposalId}/Rating/RunOptions
+  docs: https://developers.origamirisk.com/reference/post-api-quotes-proposals-proposalid-rating-runoptions
+- name: queue_proposal_rating
+  description: Queue asynchronous rating for a proposal.
+  source_operation: POST /api/Quotes/Proposals/{proposalId}/Rating/Queue
+  docs: https://developers.origamirisk.com/reference/post-api-quotes-proposals-proposalid-rating-queue
+- name: get_proposal_rating_status
+  description: Get the current rating status for a proposal.
+  source_operation: GET /api/Quotes/Proposals/{proposalId}/Rating/Status
+  docs: https://developers.origamirisk.com/reference/get-api-quotes-proposals-proposalid-rating-status
+- name: get_proposal_billing_options
+  description: Get available billing options for a proposal.
+  source_operation: GET /api/Quotes/Proposals/{proposalId}/BillingOptions
+  docs: https://developers.origamirisk.com/reference/get-api-quotes-proposals-proposalid-billingoptions
+- name: bind_proposal
+  description: Bind a proposal into an active policy.
+  source_operation: POST /api/Quotes/Proposals/{proposalId}/BindQuote
+  docs: https://developers.origamirisk.com/reference/api-quotes-proposals-proposalid-bindquote
+- name: get_bind_status
+  description: Get the bind status of a proposal.
+  source_operation: GET /api/Quotes/Proposals/{proposalId}/BindStatus
+  docs: https://developers.origamirisk.com/reference/get-api-quotes-proposals-proposalid-bindstatus
+- name: accept_proposal
+  description: Accept a proposal, issuing the policy (and generating a policy number if configured).
+  source_operation: POST /api/Policies/{proposalID}/Accept
+  docs: https://developers.origamirisk.com/reference/post-api-policies-proposalid-accept
+- name: endorse_policy
+  description: Create a policy endorsement.
+  source_operation: POST /api/Policies/{policyId}/Endorse
+  docs: https://developers.origamirisk.com/reference/post-api-policies-policyid-endorse
+- name: cancel_policy
+  description: Cancel a policy (endorsement).
+  source_operation: POST /api/Policies/{policyId}/Cancel
+  docs: https://developers.origamirisk.com/reference/post-api-policies-policyid-cancel
+- name: reinstate_policy
+  description: Create a policy reinstatement endorsement.
+  source_operation: POST /api/Policies/{policyId}/Reinstate
+  docs: https://developers.origamirisk.com/reference/post-api-policies-policyid-reinstate
+- name: make_billing_payment
+  description: Log and apply a billing payment.
+  source_operation: POST /api/BillingAccounts/{billingAccountId}/MakePayment
+  docs: https://developers.origamirisk.com/reference/post-api-billingaccounts-billingaccountid-makepayment
+- name: create_claim_from_incident
+  description: Create a claim from an existing incident (the FNOL path).
+  source_operation: POST /api/v1/Actions/CreateClaimFromIncident/{incidentID}
+  docs: https://developers.origamirisk.com/reference/post-api-v1-actions-createclaimfromincident-incidentid
+- name: queue_first_report
+  description: Queue a FirstReport action against a domain record.
+  source_operation: POST /api/v2/Actions/Queue/FirstReport/{domain}/{id}
+  docs: https://developers.origamirisk.com/reference/post-api-v2-actions-queue-firstreport-domain-id
+- name: queue_reserve_action
+  description: Queue a Reserve action against a domain record.
+  source_operation: POST /api/v2/Actions/Queue/Reserve/{domain}/{id}
+  docs: https://developers.origamirisk.com/reference/post-api-v2-actions-queue-reserve-domain-id
+- name: queue_edi_report
+  description: Queue an EDIReport state-reporting action against a domain record.
+  source_operation: POST /api/v2/Actions/Queue/EDIReport/{domain}/{id}
+  docs: https://developers.origamirisk.com/reference/post-api-v2-actions-queue-edireport-domain-id
+- name: run_report
+  description: Run an existing report and email the output.
+  source_operation: POST /api/Reports/{id}/RequestReport
+  docs: https://developers.origamirisk.com/reference/post-api-reports-id-requestreport
+- name: list_webhook_handlers
+  description: List the webhook handlers configured for the account.
+  source_operation: GET /api/Webhook/GetHandlers
+  docs: https://developers.origamirisk.com/reference/get-api-webhook-get-handlers
+- name: get_webhook_sample
+  description: Get the request/response sample schema for a named webhook handler.
+  source_operation: GET /api/Webhook/{name}/GetSample
+  docs: https://developers.origamirisk.com/reference/get-api-webhook-name-get-sample
+- name: rate_sync
+  description: Submit a standard rating request synchronously and return rating results.
+  source_operation: openapi/origami-risk-standard-rating-api-openapi.json#POST /Requests/sync
+- name: rate_async
+  description: Submit a standard rating request asynchronously and return a requestId.
+  source_operation: openapi/origami-risk-standard-rating-api-openapi.json#POST /Requests/async
+- name: get_rating_request
+  description: Retrieve a previously submitted standard rating request by id.
+  source_operation: openapi/origami-risk-standard-rating-api-openapi.json#GET /Requests/{requestId}
+- name: cancel_rating_request
+  description: Cancel a standard rating request.
+  source_operation: openapi/origami-risk-standard-rating-api-openapi.json#DELETE /Requests/{requestId}
+agent_safety_notes:
+- >-
+  Write-side tools here move money and issue insurance contracts (bind, accept, endorse,
+  cancel, make payment). No idempotency-key contract exists, so retries are not safe by
+  default — see conventions/origami-risk-conventions.yml.
+- >-
+  A 200 response does not always mean success: proposal creation can return validation
+  errors and rating can return RatingStatus "E" on a 200. Any agent must read the body.
+- >-
+  fireEvents=false suppresses downstream Origami workflow events on domain writes; use
+  it deliberately when loading data rather than transacting.

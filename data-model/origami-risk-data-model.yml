@@ -1,0 +1,212 @@
+generated: '2026-07-25'
+method: derived
+source: >-
+  https://developers.origamirisk.com/reference (documented path structure),
+  openapi/origami-risk-standard-rating-api-openapi.json
+description: >-
+  Entity graph derived from the shape of Origami Risk's documented REST paths and from
+  the one substantive published schema set (the Standard Rating service). Origami is a
+  configurable platform: most entities are reached generically as a "domain" whose
+  fields are tenant-specific and discoverable at runtime, so this graph records the
+  fixed structural entities the API itself names, not a fixed field-level schema.
+runtime_discovery:
+  note: >-
+    The authoritative per-tenant model is served by the metadata surface rather than
+    published as static schema. Read it instead of hard-coding fields.
+  operations:
+  - GET /api/Domains — list every domain in the tenant
+  - GET /api/Metadata/Domains/{domain}/DataDictionary — field dictionary for a domain
+  - GET /api/Metadata/Domains/{domain}/InputSample — sample input object for a domain
+  - GET /api/Metadata/Domains/{domain}/ScreenConfiguration — default columns and screen config
+  - GET /api/{domain}/Fields — fields that describe a domain
+  - GET /api/{domain}/Codes — code values for a domain field
+  custom_entities: >-
+    Client Defined Entities are addressed with a domain name prefixed "Custom." and are
+    case-sensitive.
+entities:
+- name: Domain
+  kind: meta
+  description: >-
+    Generic container for every configurable record type (Claim, Incident, Location,
+    Policy, custom entities …). The domain name is a case-sensitive path segment.
+  operations:
+  - GET /api/{domain}/Query
+  - GET /api/{domain}/{id}
+  - POST /api/{domain}
+  - POST /api/{domain}/Upsert
+  - PUT /api/{domain}
+  - DELETE /api/{domain}/{id}
+  - POST /api/{domain}/BulkInsert
+  - POST /api/{domain}/BulkUpsert
+- name: Proposal
+  aliases: [Quote]
+  description: >-
+    The quote-side record. "Quote" and "proposal" are the same entity; the Type field
+    distinguishes them.
+  identifier: proposalID (integer)
+  enums:
+    Type:
+      N: Quote
+      A: Application
+      E: Endorsement
+      R: Renewal
+      W: Rewrite
+      I: Reissue
+  source: https://developers.origamirisk.com/reference/post-api-quotes-proposals
+- name: PolicyLine
+  description: Line of business attached to a proposal; associated by PolicyLineID.
+- name: ProposalCoverage
+  description: Coverage assigned to a proposal, addressable by coverage id, domain or coverage category.
+- name: Schedule
+  aliases: [ScheduledItem]
+  description: Scheduled item (e.g. location, vehicle) attached to a proposal for a given domain type.
+- name: LinkedSchedule
+  description: Schedule records linked to a proposal across domains.
+- name: InsuranceProgram
+  description: Program that constrains available policy lines, carriers and states.
+- name: Carrier
+  description: Participating carrier on a program.
+- name: State
+  description: Applicable quote/coverage state, resolved per program and effective date.
+- name: Validation
+  description: Validation flag raised against a proposal item; can be waived or unwaived.
+- name: RatingStatus
+  aliases: [ProposalRatingStatus]
+  description: >-
+    Rating outcome for a proposal — ProposalID, RatingCalculationDate,
+    DeepModifiedDateUTC, RatingStatus (C complete / E error), RatingErrorMessage,
+    LineItems[] (PolicyLineCode, Premium), Premium, TotalCost.
+  source: https://developers.origamirisk.com/reference/post-api-quotes-proposals-proposalid-rating-run
+- name: Policy
+  description: Issued policy created by accepting a bound proposal.
+  identifier: policyID
+- name: Endorsement
+  description: Mid-term change, cancellation or reinstatement transaction against a policy.
+- name: BillingAccount
+  description: Billing account that payments are logged and reversed against.
+- name: Payment
+  description: Payment transaction created and allocated against a policy or billing account.
+- name: Member
+  description: Policy holder created from a proposal.
+- name: Incident
+  description: Source record for the FNOL path.
+  identifier: incidentID
+- name: Claim
+  description: Claim created from an incident, or managed as a domain in its own right.
+- name: Note
+  description: Note associated with a domain record.
+- name: Email
+  description: Email associated with a domain record.
+- name: File
+  description: File attached to a domain record, stored in Origami storage or external storage.
+- name: Link
+  description: Parent/child association between two records.
+- name: Report
+  description: Saved report with options, configuration, filter validation and a run/email action.
+- name: WebhookHandler
+  description: Named custom inbound endpoint configured by the Origami services team.
+  source: https://developers.origamirisk.com/reference/get-api-webhook-get-handlers
+- name: Rater
+  description: Rating program referenced by a standard rating request.
+  identifier: raterId
+  source: openapi/origami-risk-standard-rating-api-openapi.json
+- name: Intake
+  description: Input payload consumed by a rater, referenced by intakeId or supplied inline.
+  source: openapi/origami-risk-standard-rating-api-openapi.json
+- name: RatingRequest
+  description: >-
+    Standard Rating service request — StandardRatingRequestDto (raterId required,
+    raterVersion, intakeIds[], intakes[], generateWorksheet). Sync returns
+    SyncRatingResponseDto (requestId, ratingResults[], failedToQueueErrors); async
+    returns AsyncRatingResponseDto (requestId).
+  identifier: requestId (uuid)
+  source: openapi/origami-risk-standard-rating-api-openapi.json
+relationships:
+- from: Proposal
+  to: PolicyLine
+  type: has_many
+  via: "policyLineIDs"
+- from: Proposal
+  to: ProposalCoverage
+  type: has_many
+  via: "/api/Quotes/Proposals/{proposalId}/ProposalCoverage"
+- from: Proposal
+  to: Schedule
+  type: has_many
+  via: "/api/Quotes/Proposals/{proposalId}/Schedules/{domain}"
+- from: Proposal
+  to: LinkedSchedule
+  type: has_many
+  via: "/api/Quotes/Proposals/{proposalId}/LinkedSchedules/{domain}"
+- from: Proposal
+  to: Validation
+  type: has_many
+  via: "/api/Quotes/Proposals/{proposalId}/Validations"
+- from: Proposal
+  to: RatingStatus
+  type: has_one
+  via: "/api/Quotes/Proposals/{proposalId}/Rating/Status"
+- from: Proposal
+  to: Policy
+  type: has_one
+  via: "POST /api/Policies/{proposalID}/Accept"
+- from: Proposal
+  to: Member
+  type: has_one
+  via: "/api/Quotes/Proposals/{proposalId}/CreateMember"
+- from: InsuranceProgram
+  to: PolicyLine
+  type: has_many
+  via: "/api/Quotes/InsurancePrograms/{insuranceProgramId}/ListPolicyLines"
+- from: InsuranceProgram
+  to: Carrier
+  type: has_many
+  via: "/api/Quotes/InsurancePrograms/{insuranceProgramsId}/ListCarriers"
+- from: InsuranceProgram
+  to: State
+  type: has_many
+  via: "/api/Quotes/InsurancePrograms/{insuranceProgramId}/ListStates"
+- from: Policy
+  to: Endorsement
+  type: has_many
+  via: "POST /api/Policies/{policyId}/Endorse"
+- from: Policy
+  to: Payment
+  type: has_many
+  via: "POST /api/Policies/{policyId}/MakePayment"
+- from: BillingAccount
+  to: Payment
+  type: has_many
+  via: "/api/BillingAccounts/{billingAccountId}/MakePayment"
+- from: Incident
+  to: Claim
+  type: has_one
+  via: "POST /api/v1/Actions/CreateClaimFromIncident/{incidentID}"
+- from: Domain
+  to: Note
+  type: has_many
+  via: "/api/{domain}/{id}/Notes"
+- from: Domain
+  to: Email
+  type: has_many
+  via: "/api/{domain}/{id}/Emails"
+- from: Domain
+  to: File
+  type: has_many
+  via: "/api/{domain}/{id}/Files"
+- from: Domain
+  to: Domain
+  type: has_many
+  via: "/api/Link/Query (parent/child link)"
+- from: RatingRequest
+  to: Rater
+  type: belongs_to
+  via: "raterId"
+- from: RatingRequest
+  to: Intake
+  type: has_many
+  via: "intakeIds / intakes"
+- from: RatingRequest
+  to: RatingResultDetailsDto
+  type: has_many
+  via: "ratingResults"

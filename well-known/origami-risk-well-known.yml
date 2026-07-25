@@ -1,0 +1,37 @@
+generated: '2026-07-25'
+method: searched
+source: live probes 2026-07-25
+description: >-
+  No /.well-known/ discovery documents are served on any Origami Risk host. Every path
+  probed returned 404. Recorded as evidence so the negative result does not have to be
+  re-derived; no pointer is wired into apis.yml because nothing is present.
+hosts:
+- host: https://www.origamirisk.com
+  documents:
+  - {path: /.well-known/security.txt, status: 404}
+  - {path: /.well-known/openid-configuration, status: 404}
+  - {path: /.well-known/oauth-authorization-server, status: 404}
+  - {path: /.well-known/ai-plugin.json, status: 404}
+  - {path: /llms.txt, status: 404}
+- host: https://developers.origamirisk.com
+  documents:
+  - {path: /.well-known/security.txt, status: 404}
+  - {path: /.well-known/openid-configuration, status: 404}
+  - {path: /.well-known/oauth-authorization-server, status: 404}
+  - {path: /.well-known/api-catalog, status: 404}
+  - {path: /.well-known/ai-plugin.json, status: 404}
+  - {path: /llms.txt, status: 404}
+  - {path: /llms-full.txt, status: 404}
+  - {path: /openapi.json, status: 404}
+  - {path: /swagger.json, status: 404}
+- host: https://origamirisk.com
+  documents:
+  - {path: /.well-known/security.txt, status: 404}
+notes:
+- >-
+  Per-tenant API hosts (https://{environment}.origamirisk.com) were not probed for
+  /.well-known/ documents: they require a provisioned environment name and are not a
+  shared public surface. api.origamirisk.com does not resolve.
+- >-
+  EU tenants are served from origamiriskeu.com, which is likewise a per-tenant host
+  rather than a public API root.

@@ -1,0 +1,150 @@
+generated: '2026-07-25'
+method: searched
+source: https://developers.origamirisk.com/reference/authentication-methods
+docs: https://developers.origamirisk.com/reference/authentication-methods
+description: >-
+  Origami Risk authenticates API callers against a provisioned Origami account and
+  client. Two token-request formats are documented against the same credential store
+  (a discrete-field JSON login and an OAuth-shaped client_credentials request), the
+  issued token is then presented on every call in a Token header, and an optional
+  HMAC-SHA1 request-signing scheme is available for callers that need per-call
+  signatures. There is no OpenID Connect discovery document, no authorization-server
+  metadata and no scope surface — the OAuth format is a request shape, not a full
+  OAuth 2.0 authorization server.
+summary:
+  types:
+  - apiKey
+  - token-endpoint
+  - hmac
+  api_key_in:
+  - header
+  oauth2_flows: []
+  self_serve_credentials: false
+  credential_provisioning: >-
+    Credentials require a provisioned Origami Risk account, client and API user.
+    Reading the documentation is self-serve; obtaining a working credential is not.
+schemes:
+- name: ApiKeyAuth
+  type: apiKey
+  in: header
+  parameter: Token
+  description: The token returned by an Authenticate call, presented on subsequent requests.
+  sources:
+  - openapi/origami-risk-public-api-openapi.json
+  - openapi/origami-risk-rating-api-openapi.json
+  - https://developers.origamirisk.com/reference/authentication-methods
+- name: Simple token request
+  type: token-endpoint
+  endpoint: POST /Authentication/Authenticate
+  base_url: https://{environment}.origamirisk.com/OrigamiApi
+  docs: https://developers.origamirisk.com/reference/api-token-simple
+  request_fields:
+  - name: Account
+    required: true
+    description: The unique identifier for your organization's Origami environment.
+  - name: ClientName
+    required: true
+    description: >-
+      The name of the client within the designated Origami Account. Users with
+      cross-client permissions may pass __CrossClientSessionClient to generate a key
+      scoped to all clients the user can access.
+  - name: User
+    required: true
+    description: Your Origami username.
+  - name: Password
+    required: true
+    description: The password associated with the User account.
+  responses:
+  - status: 200
+    description: OK — token issued
+  - status: 401
+    description: Unauthorized
+- name: OAuth-format token request
+  type: token-endpoint
+  endpoint: POST /Authentication/AuthenticateOAuth
+  base_url: https://{environment}.origamirisk.com/OrigamiApi
+  docs: https://developers.origamirisk.com/reference/api-token-oauth-format
+  grant_types:
+  - client_credentials
+  note: >-
+    client_credentials is the only grant type Origami's APIs support. Client_ID is a
+    composite string "{AccountName}:{ClientName}:{UserName}" and Client_Secret is the
+    password of that user. No scopes are defined and no authorization-server metadata
+    is published, so this is an OAuth-shaped request against the same credential store
+    rather than a conformant OAuth 2.0 authorization server.
+  request_fields:
+  - name: Grant_Type
+    required: true
+    default: client_credentials
+  - name: Client_ID
+    required: true
+    description: '"{AccountName}:{ClientName}:{UserName}" — e.g. AcmeAccount:MunicipleClientPool:AlexanderHamilton'
+  - name: Client_Secret
+    required: true
+    description: The password of the {UserName} supplied in Client_ID.
+  responses:
+  - status: 200
+    description: OK — token issued
+  - status: 401
+    description: Unauthorized
+- name: HMAC authorization
+  type: hmac
+  algorithm: HMAC-SHA1
+  encoding: base64
+  docs: https://developers.origamirisk.com/reference/hmac-authorization
+  description: >-
+    Per-call one-way dynamically changing signature. Higher overhead per call, but
+    additional security over a bearer token.
+  headers:
+  - name: content-type
+    required: true
+    description: >-
+      Content type of the call (e.g. application/json). Omitted for GET calls, where it
+      does not apply.
+  - name: x-api-date
+    required: true
+    description: >-
+      Request date in the format "yyyy-MM-dd HH:mm:ss zzzz" (e.g. 2018-10-10 22:57:40
+      -05:00). Requests with a date older than 120 seconds are rejected.
+  - name: x-api-key
+    required: true
+    description: Key identifier string for the calling client application, provided during API setup.
+  - name: x-api-signature
+    required: true
+    description: Base64-encoded HMAC-SHA1 hash of the canonical string.
+  - name: x-api-clientname
+    required: false
+    description: >-
+      For API accounts with cross-client access, selects the Client Name for the
+      connection. Not required for single-client accounts.
+  string_to_sign: >-
+    Concatenate with no separators: HTTP method verb (UPPER CASE) + content type
+    (empty string when no content-type header was sent) + request date (matching
+    x-api-date) + request URI path and query without the host (e.g.
+    /OrigamiApi/api/Webhook/GetHandlers) + the secret key issued at API setup. HMAC-SHA1
+    that input using x-api-key, then base64-encode the result.
+  replay_window_seconds: 120
+  code_samples_published:
+  - C#
+  - Python
+  - PHP
+  - Java
+  - JavaScript (Node.js)
+  - Ruby
+- name: Token expiry check
+  type: utility
+  endpoint: GET /Authentication/HasTokenExpired
+  docs: https://developers.origamirisk.com/reference/check-if-api-token-has-expired
+  note: Confirms whether a previously issued token is still valid.
+- name: Availability ping
+  type: utility
+  endpoint: GET /Authentication/Ping
+  docs: https://developers.origamirisk.com/reference/ping
+  note: Availability probe published alongside the authentication surface.
+oidc_discovery: false
+oauth_authorization_server_metadata: false
+notes:
+- No /.well-known/openid-configuration or /.well-known/oauth-authorization-server is
+  served on any Origami Risk host (probed 2026-07-25, all 404).
+- No OAuth scopes are documented; authorization is governed by the Origami user's
+  configured permissions and client scoping, not by scope strings.

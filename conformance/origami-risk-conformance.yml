@@ -1,0 +1,116 @@
+generated: '2026-07-25'
+method: derived
+source: openapi/, https://developers.origamirisk.com/reference, https://www.origamirisk.com/platform/api-access/
+description: >-
+  What the Origami Risk API surface actually conforms to, derived from the four
+  published OpenAPI definitions and the developer portal reference, and checked against
+  the standards a US property-and-casualty core system would be expected to claim. The
+  headline finding for the sector is negative and deliberate: Origami makes no ACORD,
+  AL3, NGDS or IVANS conformance claim anywhere on its marketing site or developer
+  portal.
+standards:
+- id: openapi-3
+  conforms: true
+  evidence: >-
+    Four OpenAPI definitions published to the portal's spec registry (3.0.0 x3,
+    3.0.1 x1). Coverage is thin — 11 paths across the four documents against roughly
+    180 hand-authored reference operations.
+- id: rest-json
+  conforms: true
+  evidence: JSON request/response over HTTPS across the whole documented surface.
+- id: oauth2
+  conforms: false
+  evidence: >-
+    An OAuth-SHAPED token request exists (POST /Authentication/AuthenticateOAuth,
+    Grant_Type=client_credentials, Client_ID/Client_Secret) but there is no
+    authorization-server metadata, no scopes, no token introspection or revocation, and
+    Client_ID is a composite "{Account}:{Client}:{User}" string. It is a request format,
+    not an OAuth 2.0 authorization server.
+- id: oidc
+  conforms: false
+  evidence: /.well-known/openid-configuration returns 404 on every Origami host (probed 2026-07-25).
+- id: rfc8414-oauth-authorization-server-metadata
+  conforms: false
+  evidence: /.well-known/oauth-authorization-server returns 404 (probed 2026-07-25).
+- id: rfc7807-problem-details
+  conforms: true
+  partial: true
+  evidence: >-
+    ProblemDetails (type/title/status/detail/instance) on 400 and 404 in
+    openapi/origami-risk-standard-rating-api-openapi.json. Served as application/json,
+    not application/problem+json, and only by the Standard Rating service.
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: No application/problem+json media type and no problem type URI registry.
+- id: rfc9116-security-txt
+  conforms: false
+  evidence: /.well-known/security.txt returns 404 on www.origamirisk.com and developers.origamirisk.com.
+- id: rfc8594-sunset-header
+  conforms: false
+  evidence: >-
+    No Sunset or Deprecation header support documented. Deprecation is communicated in
+    the reference page body (e.g. Rating/Run -> Rating/RunOptions).
+- id: idempotency-key
+  conforms: false
+  evidence: >-
+    No Idempotency-Key header or equivalent retry-safety contract in the docs or specs.
+    Upsert/BulkUpsert operations provide key-based write convergence instead.
+- id: pagination
+  conforms: true
+  evidence: >-
+    Query responses capped at 100 records per page, discoverable at runtime via
+    GET /AccountInformation/Limits.
+- id: asyncapi
+  conforms: false
+  evidence: No AsyncAPI document; webhooks are inbound custom handlers with no event catalog.
+- id: json-schema
+  conforms: partial
+  evidence: >-
+    Per-tenant field definitions are discoverable at runtime through the metadata
+    surface (DataDictionary, InputSample, ScreenConfiguration) rather than as published
+    JSON Schema documents.
+- id: odata
+  conforms: false
+  evidence: >-
+    Proprietary view-filter string with a JSON-tree equivalent and dedicated
+    validation/conversion endpoints, not OData.
+- id: graphql
+  conforms: false
+  evidence: The developer portal's own module configuration reports graphql=false; no GraphQL endpoint found.
+- id: grpc
+  conforms: false
+  evidence: No .proto artifacts published.
+- id: acord
+  conforms: false
+  evidence: >-
+    No ACORD, ACORD XML, AL3, NGDS, IVANS, agency download, Applied Epic, Vertafore or
+    AMS360 reference on developers.origamirisk.com or www.origamirisk.com. For a US P&C
+    core system this absence is itself the finding — the sector's default data idiom is
+    not what this vendor markets on.
+- id: wc-edi-state-reporting
+  conforms: partial
+  evidence: >-
+    A queued action POST /api/v2/Actions/Queue/EDIReport/{domain}/{id} exists,
+    consistent with US state workers' compensation EDI reporting. No EDI transport,
+    AL3 mapping or IVANS connection is documented publicly.
+- id: fhir
+  conforms: false
+  evidence: Healthcare risk/patient-safety solutions exist, but no FHIR resources or endpoints are exposed.
+- id: hipaa
+  conforms: claimed
+  evidence: >-
+    HIPAA named on Origami's GRC compliance-management solution pages; a Vanta-hosted
+    trust center is published at https://trust.origamirisk.com/. See
+    security/origami-risk-trust-center.yml.
+- id: gdpr
+  conforms: claimed
+  evidence: >-
+    GDPR and CCPA addressed in the Origami Risk privacy policy
+    (https://www.origamirisk.com/privacy-policy/); EU tenants are hosted on separate
+    origamiriskeu.com environments.
+- id: psd2
+  conforms: false
+  evidence: Not applicable — US/EU insurance core systems, no payment-initiation surface.
+- id: scim
+  conforms: false
+  evidence: No SCIM 2.0 user-provisioning endpoints; user administration is via the platform admin portal.

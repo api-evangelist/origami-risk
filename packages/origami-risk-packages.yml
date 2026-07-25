@@ -1,0 +1,39 @@
+generated: '2026-07-25'
+method: searched
+source: npm, PyPI, NuGet, GitHub, https://developers.origamirisk.com/
+description: >-
+  No first-party Origami Risk client library, SDK or CLI was found on any public
+  package registry or on the developer portal. Integration is direct REST plus the
+  ReadMe explorer's generated code samples (Shell, Node, Ruby, PHP, Python), which are
+  per-request snippets rather than a maintained client.
+packages: []
+official_sdks: 0
+registries_searched:
+- registry: npm
+  query: origami-risk
+  result: no first-party package (matches are Financial Times "Origami" design-system packages, unrelated)
+- registry: pypi
+  query: origami-risk, origamirisk, origami_risk
+  result: 404 for all three
+- registry: nuget
+  query: origami risk
+  result: no matches
+- registry: github
+  query: origamirisk / "origami risk"
+  result: >-
+    The github.com/origamirisk organisation exists (Origami Risk LLC, created
+    2017-12-15) but publishes 0 public repositories. All public repositories matching
+    the name are third-party QA/SDET exercises, not client libraries.
+docs_code_samples:
+  generated_by: ReadMe interactive explorer
+  languages:
+  - Shell
+  - Node
+  - Ruby
+  - PHP
+  - Python
+  note: >-
+    Per-endpoint request snippets rendered by the docs platform. HMAC signing has
+    hand-written sample implementations published in C#, Python, PHP, Java,
+    JavaScript (Node.js) and Ruby on the HMAC Authorization page.
+  source: https://developers.origamirisk.com/reference/hmac-authorization

@@ -1,0 +1,46 @@
+generated: '2026-07-25'
+method: searched
+source: https://www.origamirisk.com/platform/product-updates/
+url: https://www.origamirisk.com/platform/product-updates/
+description: >-
+  Origami Risk publishes platform change as a seasonal product release rather than a
+  dated API changelog. Each release gets a marketing-style release page describing new
+  platform capabilities; there is no per-endpoint API changelog, no versioned release
+  notes feed and no RSS. API-affecting change has to be inferred from the release
+  pages and from in-reference "Updated <n> ago" stamps on individual endpoint docs.
+scheme: seasonal named releases (Season + Year)
+current_version: Summer 2026
+api_changelog_published: false
+feed: null
+entries:
+- version: Summer 2026
+  url: https://www.origamirisk.com/platform/product-updates/innovation-summer-2026/
+  breaking: unknown
+  highlights:
+  - Centralized Admin Portal for managing users, access, workflows and environments.
+  - Origami Workflow — no-code workflow builder with visibility into triggers, processes and history.
+  - AI tile embedded in workflows to analyze, summarize and act on data in real time.
+  - Origami Risk Marketplace — curated catalog of pre-built connectors, integrations and accelerators.
+  - Insurance program management pulling the full policy lifecycle into one platform.
+  - Redesigned docked Email Compose experience.
+  - AI Risk and Control Explorer with interactive chat.
+  - Vehicle diagram selector for damage documentation at first notice of loss.
+- version: Spring 2026
+  url: https://www.origamirisk.com/platform/product-updates/innovation-spring-2026/
+  breaking: unknown
+  highlights:
+  - Enhancements across GRC, claims workflows and reporting capabilities.
+- version: Winter 2025
+  breaking: unknown
+  highlights:
+  - AI-powered enhancements to accelerate risk identification.
+  - Streamlined claims communication.
+  - Decision-making improvements across GRC and RMIS workflows.
+developer_portal_changes:
+  beta: true
+  note: >-
+    The developer portal is in Beta with documentation expected to evolve through Q3
+    2026. Individual reference pages carry relative "Updated N ago" stamps (observed
+    2026-07-25: authentication token pages 16 days, Accept Proposal 3 months, webhook
+    pages 4-9 months) which is the only per-endpoint change signal published.
+  source: https://developers.origamirisk.com/docs/beta-notification

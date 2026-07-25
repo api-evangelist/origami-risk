@@ -1,0 +1,100 @@
+generated: '2026-07-25'
+method: derived
+source: openapi/origami-risk-standard-rating-api-openapi.json
+docs:
+- https://developers.origamirisk.com/reference/api-token-simple
+- https://developers.origamirisk.com/reference/post-api-quotes-proposals
+- https://developers.origamirisk.com/reference/post-api-quotes-proposals-proposalid-rating-run
+format: mixed
+description: >-
+  Origami Risk does not publish a platform-wide error-code registry. Two distinct error
+  shapes are observable in the public surface: the standalone Standard Rating service
+  returns RFC 7807 ProblemDetails on 400/404, while the core platform API returns
+  operation-specific JSON bodies and — importantly — is documented as returning HTTP 200
+  for some validation and rating failures. Clients must inspect the response body, not
+  only the status code.
+envelope:
+  rfc7807:
+    used_by: openapi/origami-risk-standard-rating-api-openapi.json
+    media_types:
+    - application/json
+    - text/json
+    - text/plain
+    schema: ProblemDetails
+    fields:
+    - {name: type, type: string, nullable: true}
+    - {name: title, type: string, nullable: true}
+    - {name: status, type: integer, nullable: true}
+    - {name: detail, type: string, nullable: true}
+    - {name: instance, type: string, nullable: true}
+    note: >-
+      The schema is the ASP.NET Core ProblemDetails shape (RFC 7807), not the newer
+      RFC 9457 problem type registry, and no application/problem+json media type is
+      declared — the same object is served as application/json.
+  in_band_success_errors:
+    used_by: core platform API (/OrigamiApi)
+    note: >-
+      Documented on multiple endpoints. POST /api/Quotes/Proposals warns of "the
+      possibility of receiving a 200 response to denote validation errors".
+      POST /api/Quotes/Proposals/{proposalId}/Rating/Run catches rating-engine
+      exceptions internally and returns 200 OK with RatingStatus = "E" and the
+      message in RatingErrorMessage.
+    fields:
+    - {name: RatingStatus, values: 'C = complete, E = error', source: ProposalRatingStatus}
+    - {name: RatingErrorMessage, type: string}
+  rating_result_errors:
+    used_by: openapi/origami-risk-standard-rating-api-openapi.json
+    note: >-
+      Per-intake failures inside a 200 response are carried as
+      RatingResultDetailsDto.errors[] (array of strings), and queueing failures as
+      SyncRatingResponseDto.failedToQueueErrors (map of id -> message).
+problems:
+- status: 400
+  title: Bad Request
+  schema: ProblemDetails
+  source_operation: openapi/origami-risk-standard-rating-api-openapi.json#POST /Requests/sync
+- status: 400
+  title: Bad Request
+  schema: ProblemDetails
+  source_operation: openapi/origami-risk-standard-rating-api-openapi.json#POST /Requests/async
+- status: 404
+  title: Not Found
+  schema: ProblemDetails
+  source_operation: openapi/origami-risk-standard-rating-api-openapi.json#GET /Requests/{requestId}
+  remediation: The rating requestId is unknown or has expired; re-submit the rating request.
+- status: 404
+  title: Not Found
+  schema: ProblemDetails
+  source_operation: openapi/origami-risk-standard-rating-api-openapi.json#DELETE /Requests/{requestId}
+- status: 401
+  title: Unauthorized
+  schema: null
+  source_operation: https://developers.origamirisk.com/reference/api-token-simple
+  remediation: >-
+    Token request rejected. Verify Account, ClientName, User and Password (simple
+    format) or the composite Client_ID "{Account}:{Client}:{User}" and Client_Secret
+    (OAuth format). Documented failure modes include invalid password and user not found.
+- status: 401
+  title: Unauthorized
+  schema: null
+  source_operation: https://developers.origamirisk.com/reference/api-token-oauth-format
+- status: 200
+  title: Validation errors returned on a success status
+  schema: operation-specific
+  source_operation: https://developers.origamirisk.com/reference/post-api-quotes-proposals
+  remediation: >-
+    Inspect the response body for validation messages before treating a 200 as a
+    successful create.
+- status: 200
+  title: Rating error returned on a success status
+  schema: ProposalRatingStatus
+  source_operation: https://developers.origamirisk.com/reference/post-api-quotes-proposals-proposalid-rating-run
+  remediation: >-
+    Check RatingStatus; "E" means the rating engine failed and RatingErrorMessage
+    carries the reason.
+gaps:
+- No published platform-wide error-code registry or error reference page.
+- No application/problem+json media type; RFC 9457 type URIs are not used.
+- The four published OpenAPI definitions declare no 4xx responses outside the Standard
+  Rating service, so most of the ~180 documented operations have no machine-readable
+  error contract.
