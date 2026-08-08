@@ -2,6 +2,13 @@
   "repo": "origami-risk",
   "feeds": [
     {
+      "source": "https://www.origamirisk.com/contact/feed/",
+      "feed_url": "https://www.origamirisk.com/contact/feed/",
+      "title": "",
+      "saved": 0,
+      "method": "feed"
+    },
+    {
       "source": "https://www.origamirisk.com/contact/",
       "feed_url": "https://www.origamirisk.com/contact/feed/",
       "title": "",
@@ -10,5 +17,5 @@
     }
   ],
   "post_count": 0,
-  "fetched": "2026-08-01T15:49:00Z"
+  "fetched": "2026-08-06T14:08:46Z"
 }
