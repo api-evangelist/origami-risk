@@ -38,7 +38,7 @@ tags:
 - Billing
 created: '2026-07-25'
 modified: '2026-07-25'
-specificationVersion: '0.19'
+specificationVersion: '0.23'
 apis:
 - aid: origami-risk:origami-risk-authentication-api
   name: Origami Risk Authentication API
