@@ -1,0 +1,21 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Rating API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "New Endpoint",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "http://origamirater-standard.dev.dais.com/new-endpoint"
+      },
+      "docs": "This is your first endpoint! Edit this page to start documenting your API."
+    }
+  ],
+  "bundled": true
+}

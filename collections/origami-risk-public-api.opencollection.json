@@ -1,0 +1,63 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Origami Risk Public API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "New Endpoint",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://{environment}.origamirisk.com/OrigamiApi/new-endpoint"
+      },
+      "docs": "This is your first endpoint! Edit this page to start documenting your API."
+    },
+    {
+      "info": {
+        "name": "get_HasToken",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://{environment}.origamirisk.com/OrigamiApi/HasTokenExpired",
+        "auth": {
+          "type": "apikey",
+          "key": "Token",
+          "value": "{{Token}}",
+          "placement": "header"
+        }
+      }
+    },
+    {
+      "info": {
+        "name": "get_new-endpoint-1",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://{environment}.origamirisk.com/OrigamiApi/new-endpoint-1",
+        "auth": {
+          "type": "apikey",
+          "key": "Token",
+          "value": "{{Token}}",
+          "placement": "header"
+        }
+      }
+    },
+    {
+      "info": {
+        "name": "post_new-endpoint-2",
+        "type": "http"
+      },
+      "http": {
+        "method": "POST",
+        "url": "https://{environment}.origamirisk.com/OrigamiApi/Authentication/Authenticate"
+      }
+    }
+  ],
+  "bundled": true
+}

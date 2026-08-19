@@ -1,0 +1,79 @@
+{
+  "item": [
+    {
+      "id": "cba4ac65-0ff9-4b21-ba86-c773dc4df99b",
+      "name": "New Endpoint",
+      "request": {
+        "name": "New Endpoint",
+        "description": {
+          "content": "This is your first endpoint! Edit this page to start documenting your API.",
+          "type": "text/plain"
+        },
+        "url": {
+          "path": [
+            "new-endpoint"
+          ],
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "query": [],
+          "variable": []
+        },
+        "method": "GET",
+        "auth": null
+      },
+      "response": [
+        {
+          "id": "eba9cccd-357c-492d-889e-127897534992",
+          "name": "Successful response",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "new-endpoint"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "body": {}
+          },
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "text/plain"
+            }
+          ],
+          "body": "",
+          "cookie": [],
+          "_postman_previewlanguage": "text"
+        }
+      ],
+      "event": [],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      }
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "http://origamirater-standard.dev.dais.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "d6c4b79f-a344-47c2-8322-76a2700f77de",
+    "name": "Rating API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

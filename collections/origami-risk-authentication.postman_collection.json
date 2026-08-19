@@ -1,0 +1,238 @@
+{
+  "item": [
+    {
+      "id": "0ba8ed02-bc7b-4585-8bc5-b6006fd72863",
+      "name": "New Endpoint",
+      "request": {
+        "name": "New Endpoint",
+        "description": {
+          "content": "This is your first endpoint! Edit this page to start documenting your API.",
+          "type": "text/plain"
+        },
+        "url": {
+          "path": [
+            "Authentication",
+            "HasTokenExpired"
+          ],
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "query": [],
+          "variable": []
+        },
+        "header": [
+          {
+            "disabled": false,
+            "key": "Token",
+            "value": "",
+            "description": ""
+          }
+        ],
+        "method": "GET",
+        "auth": null
+      },
+      "response": [
+        {
+          "id": "cf95d661-bf2d-4cf8-ab47-23167fa9414f",
+          "name": "Successful response",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "Authentication",
+                "HasTokenExpired"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "key": "Token",
+                "value": "",
+                "description": ""
+              }
+            ],
+            "method": "GET",
+            "body": {}
+          },
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "text/plain"
+            }
+          ],
+          "body": "",
+          "cookie": [],
+          "_postman_previewlanguage": "text"
+        }
+      ],
+      "event": [],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      }
+    },
+    {
+      "id": "bca1af66-a618-4728-a088-e174824108a8",
+      "name": "get Authentication Ping",
+      "request": {
+        "name": "get Authentication Ping",
+        "description": {
+          "content": "",
+          "type": "text/plain"
+        },
+        "url": {
+          "path": [
+            "Authentication",
+            "Ping"
+          ],
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "query": [],
+          "variable": []
+        },
+        "method": "GET",
+        "auth": null
+      },
+      "response": [
+        {
+          "id": "86f6b34d-5a18-4fde-aa5c-9d4c67f989d3",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "Authentication",
+                "Ping"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "body": {}
+          },
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "text/plain"
+            }
+          ],
+          "body": "",
+          "cookie": [],
+          "_postman_previewlanguage": "text"
+        }
+      ],
+      "event": [],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      }
+    },
+    {
+      "id": "ca2a7b0e-d3d0-4531-b7d7-207d928280b3",
+      "name": "post new-endpoint-1",
+      "request": {
+        "name": "post new-endpoint-1",
+        "description": {
+          "content": "",
+          "type": "text/plain"
+        },
+        "url": {
+          "path": [
+            "Authentication",
+            "Authenticate-DELETEME"
+          ],
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "query": [],
+          "variable": []
+        },
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "method": "POST",
+        "auth": null,
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"Account\": \"<string>\",\n  \"User\": \"<string>\",\n  \"Password\": \"<string>\",\n  \"ClientName\": \"<string>\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": [
+        {
+          "id": "4adae93d-98c0-4cec-b34e-8208160ea26f",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "Authentication",
+                "Authenticate-DELETEME"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"Account\": \"<string>\",\n  \"User\": \"<string>\",\n  \"Password\": \"<string>\",\n  \"ClientName\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "text/plain"
+            }
+          ],
+          "body": "",
+          "cookie": [],
+          "_postman_previewlanguage": "text"
+        }
+      ],
+      "event": [],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      }
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://{{environment}}.origamirisk.com/OrigamiApi-v2",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "72ec0177-e4a9-4fd1-bd5f-cfe3ed791f64",
+    "name": "Origami Risk Authentication",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

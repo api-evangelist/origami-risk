@@ -1,0 +1,51 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Origami Risk Authentication",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "New Endpoint",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://{environment}.origamirisk.com/OrigamiApi-v2/Authentication/HasTokenExpired",
+        "headers": [
+          {
+            "name": "Token",
+            "value": ""
+          }
+        ]
+      },
+      "docs": "This is your first endpoint! Edit this page to start documenting your API."
+    },
+    {
+      "info": {
+        "name": "get_AuthenticationPing",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://{environment}.origamirisk.com/OrigamiApi-v2/Authentication/Ping"
+      }
+    },
+    {
+      "info": {
+        "name": "post_new-endpoint-1",
+        "type": "http"
+      },
+      "http": {
+        "method": "POST",
+        "url": "https://{environment}.origamirisk.com/OrigamiApi-v2/Authentication/Authenticate-DELETEME",
+        "body": {
+          "type": "json",
+          "data": "{}"
+        }
+      }
+    }
+  ],
+  "bundled": true
+}

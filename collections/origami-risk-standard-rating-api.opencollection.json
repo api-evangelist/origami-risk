@@ -1,0 +1,80 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Rating API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Requests",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "POST /Requests/sync",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://origamirater-standard.dev.dais.com?oas/Requests/sync",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "POST /Requests/async",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://origamirater-standard.dev.dais.com?oas/Requests/async",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "GET /Requests/{requestId}",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://origamirater-standard.dev.dais.com?oas/Requests/:requestId",
+            "params": [
+              {
+                "name": "requestId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "DELETE /Requests/{requestId}",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "http://origamirater-standard.dev.dais.com?oas/Requests/:requestId",
+            "params": [
+              {
+                "name": "requestId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

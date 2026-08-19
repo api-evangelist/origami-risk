@@ -1,27 +1,20 @@
 generated: '2026-07-25'
 method: derived
 status: candidate
-source: >-
-  https://developers.origamirisk.com/reference,
-  openapi/origami-risk-standard-rating-api-openapi.json
-notes: >-
-  No official hosted or local Origami Risk MCP server was found — nothing on the
-  developer portal, the marketing site, npm, PyPI, the (empty) github.com/origamirisk
-  organisation or the public MCP registries. The tool list below is a CANDIDATE derived
-  from operations Origami genuinely documents; every source_operation is a real,
-  published endpoint. Input schemas would have to be read from the tenant's own
-  metadata surface, because the published OpenAPI covers only 11 of roughly 180
-  documented operations.
+source: https://developers.origamirisk.com/reference, openapi/origami-risk-standard-rating-api-openapi.json
+notes: No official hosted or local Origami Risk MCP server was found — nothing on the developer portal,
+  the marketing site, npm, PyPI, the (empty) github.com/origamirisk organisation or the public MCP registries.
+  The tool list below is a CANDIDATE derived from operations Origami genuinely documents; every source_operation
+  is a real, published endpoint. Input schemas would have to be read from the tenant's own metadata surface,
+  because the published OpenAPI covers only 11 of roughly 180 documented operations.
 server:
   name: origami-risk
   transport: http
   url: null
   auth:
     scheme: Token header (see authentication/origami-risk-authentication.yml)
-    note: >-
-      Any MCP server for Origami is inherently per-tenant — the base URL itself carries
-      the environment ({environment}.origamirisk.com) and credentials are provisioned
-      per account/client/user.
+    note: Any MCP server for Origami is inherently per-tenant — the base URL itself carries the environment
+      ({environment}.origamirisk.com) and credentials are provisioned per account/client/user.
 tools:
 - name: ping_api
   description: Check Origami API availability for the selected environment.
@@ -200,13 +193,15 @@ tools:
   description: Cancel a standard rating request.
   source_operation: openapi/origami-risk-standard-rating-api-openapi.json#DELETE /Requests/{requestId}
 agent_safety_notes:
-- >-
-  Write-side tools here move money and issue insurance contracts (bind, accept, endorse,
-  cancel, make payment). No idempotency-key contract exists, so retries are not safe by
-  default — see conventions/origami-risk-conventions.yml.
-- >-
-  A 200 response does not always mean success: proposal creation can return validation
-  errors and rating can return RatingStatus "E" on a 200. Any agent must read the body.
-- >-
-  fireEvents=false suppresses downstream Origami workflow events on domain writes; use
-  it deliberately when loading data rather than transacting.
+- Write-side tools here move money and issue insurance contracts (bind, accept, endorse, cancel, make
+  payment). No idempotency-key contract exists, so retries are not safe by default — see conventions/origami-risk-conventions.yml.
+- 'A 200 response does not always mean success: proposal creation can return validation errors and rating
+  can return RatingStatus "E" on a 200. Any agent must read the body.'
+- fireEvents=false suppresses downstream Origami workflow events on domain writes; use it deliberately
+  when loading data rather than transacting.
+deployment:
+  mode: none
+  verified: derived
+  tools: 45
+  checked: '2026-08-12'
+  source: catalog MCP census
