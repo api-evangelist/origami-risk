@@ -51,6 +51,9 @@ apis:
   baseURL: https://{environment}.origamirisk.com/OrigamiApi-v2
   tags:
   - Authentication
+  - HMAC
+  tags_raw:
+  - Authentication
   - OAuth
   - HMAC
   properties:
@@ -74,6 +77,11 @@ apis:
   humanURL: https://developers.origamirisk.com/reference/domains-entities
   baseURL: https://{environment}.origamirisk.com/OrigamiApi
   tags:
+  - Domains
+  - Entities
+  - Metadata
+  - File
+  tags_raw:
   - Domains
   - Entities
   - Metadata
@@ -102,6 +110,9 @@ apis:
   humanURL: https://developers.origamirisk.com/reference
   tags:
   - Rating
+  - Quotes
+  tags_raw:
+  - Rating
   - Quote
   properties:
   - type: APIReference
@@ -129,6 +140,11 @@ apis:
   humanURL: https://developers.origamirisk.com/reference/quotes-and-proposals
   baseURL: https://{environment}.origamirisk.com/OrigamiApi
   tags:
+  - Quotes
+  - Bind
+  - Rating
+  - Underwriting
+  tags_raw:
   - Quote
   - Bind
   - Rating
@@ -190,6 +206,11 @@ apis:
   tags:
   - Claims
   - FNOL
+  - Workflows
+  - EDI
+  tags_raw:
+  - Claims
+  - FNOL
   - Workflow
   - EDI
   properties:
@@ -213,6 +234,9 @@ apis:
   humanURL: https://developers.origamirisk.com/reference/webhooks
   baseURL: https://{environment}.origamirisk.com/OrigamiApi
   tags:
+  - Webhook
+  - Event
+  tags_raw:
   - Webhooks
   - Events
   properties:
