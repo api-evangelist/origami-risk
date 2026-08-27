@@ -40,103 +40,13 @@ created: '2026-07-25'
 modified: '2026-07-25'
 specificationVersion: '0.23'
 apis:
-- aid: origami-risk:origami-risk-authentication-api
-  name: Origami Risk Authentication API
-  description: Token issuance and session verification for the Origami Risk platform
-    APIs. Two documented token formats — a simple JSON payload (Account, User, Password,
-    ClientName) and an OAuth-style client_credentials request combining Client_ID and
-    Client_Secret — plus HMAC authorization for per-call signing, an availability ping,
-    and a token-expiry check.
-  humanURL: https://developers.origamirisk.com/reference/authentication-methods
-  baseURL: https://{environment}.origamirisk.com/OrigamiApi-v2
-  tags:
-  - Authentication
-  - HMAC
-  tags_raw:
-  - Authentication
-  - OAuth
-  - HMAC
-  properties:
-  - type: Documentation
-    url: https://developers.origamirisk.com/docs
-  - type: APIReference
-    url: https://developers.origamirisk.com/reference/authentication-methods
-  - type: OpenAPI
-    url: openapi/origami-risk-authentication-openapi.json
-  - type: Overlay
-    url: overlays/origami-risk-authentication-overlay.yaml
-  - type: Authentication
-    url: authentication/origami-risk-authentication.yml
-- aid: origami-risk:origami-risk-public-api
-  name: Origami Risk Public API
-  description: The core Origami Risk platform API — generic domain and entity CRUD
-    (get, upsert, bulk insert, bulk upsert, delete), domain metadata and data dictionary
-    lookups, screen configuration, notes, emails, files and external storage upload,
-    record linking, mail merge, and query/filter syntax validation across every
-    configurable Origami domain.
-  humanURL: https://developers.origamirisk.com/reference/domains-entities
-  baseURL: https://{environment}.origamirisk.com/OrigamiApi
-  tags:
-  - Domains
-  - Entities
-  - Metadata
-  - File
-  tags_raw:
-  - Domains
-  - Entities
-  - Metadata
-  - Files
-  properties:
-  - type: Documentation
-    url: https://developers.origamirisk.com/docs
-  - type: APIReference
-    url: https://developers.origamirisk.com/reference/domains-entities
-  - type: OpenAPI
-    url: openapi/origami-risk-public-api-openapi.json
-  - type: Overlay
-    url: overlays/origami-risk-public-api-overlay.yaml
-  - type: DataModel
-    url: data-model/origami-risk-data-model.yml
-  - type: AgentSkill
-    url: skills/origami-risk-domain-data-access.md
-    name: Read and write Origami Risk domain data safely
-- aid: origami-risk:origami-risk-standard-rating-api
-  name: Origami Risk Standard Rating API
-  description: Standalone standard rating service that accepts a rating request
-    referencing a rater and intake payloads and returns rating results, offered in
-    both synchronous and asynchronous modes with request retrieval and cancellation.
-    The only one of Origami's four published OpenAPI definitions that carries a
-    complete set of request/response schemas.
-  humanURL: https://developers.origamirisk.com/reference
-  tags:
-  - Rating
-  - Quotes
-  tags_raw:
-  - Rating
-  - Quote
-  properties:
-  - type: APIReference
-    url: https://developers.origamirisk.com/reference
-  - type: OpenAPI
-    url: openapi/origami-risk-standard-rating-api-openapi.json
-  - type: OpenAPI
-    url: openapi/origami-risk-rating-api-openapi.json
-  - type: Overlay
-    url: overlays/origami-risk-standard-rating-api-overlay.yaml
-  - type: Overlay
-    url: overlays/origami-risk-rating-api-overlay.yaml
-  - type: ErrorCatalog
-    url: errors/origami-risk-problem-types.yml
-  - type: AgentSkill
-    url: skills/origami-risk-standard-rating-service.md
-    name: Submit a rating request to the Origami Risk Standard Rating service
 - aid: origami-risk:origami-risk-quotes-and-proposals-api
   name: Origami Risk Quotes and Proposals API
-  description: Quote-side policy lifecycle — create and patch proposals, add and
-    remove policy lines, coverages, schedules and linked schedules, list insurance
-    programs, carriers, policy lines and states, run or queue rating and check rating
-    status, run and waive validations, retrieve billing and endorsement billing
-    options, then bind the quote synchronously or by queue and poll bind status.
+  description: >-
+    Quote-side policy lifecycle — create and patch proposals, add and remove policy lines, coverages,
+    schedules and linked schedules, list insurance programs, carriers, policy lines and states, run or
+    queue rating and check rating status, run and waive validations, retrieve billing and endorsement
+    billing options, then bind the quote synchronously or by queue and poll bind status.
   humanURL: https://developers.origamirisk.com/reference/quotes-and-proposals
   baseURL: https://{environment}.origamirisk.com/OrigamiApi
   tags:
@@ -159,10 +69,10 @@ apis:
     name: Quote a risk and bind it into a policy on Origami Risk
 - aid: origami-risk:origami-risk-policies-api
   name: Origami Risk Policies API
-  description: Issue-side policy administration — accept, reject, undo-accept,
-    undo-reject and undo-binding a bound proposal to issue a policy, then endorse,
-    cancel, reinstate, change billing frequency and take payment against the issued
-    policy, with cancellation and reinstatement reason code lookups.
+  description: >-
+    Issue-side policy administration — accept, reject, undo-accept, undo-reject and undo-binding a bound
+    proposal to issue a policy, then endorse, cancel, reinstate, change billing frequency and take payment
+    against the issued policy, with cancellation and reinstatement reason code lookups.
   humanURL: https://developers.origamirisk.com/reference/policies
   baseURL: https://{environment}.origamirisk.com/OrigamiApi
   tags:
@@ -179,10 +89,10 @@ apis:
     name: Issue and service a policy on Origami Risk
 - aid: origami-risk:origami-risk-billing-accounts-api
   name: Origami Risk Billing and Payments API
-  description: Billing account operations including making and reversing payments,
-    plus an online policy payment surface integrated with the One Inc payment
-    gateway covering payment submission, payment-method acknowledgement, autopay
-    management feedback and payment feedback callbacks.
+  description: >-
+    Billing account operations including making and reversing payments, plus an online policy payment
+    surface integrated with the One Inc payment gateway covering payment submission, payment-method acknowledgement,
+    autopay management feedback and payment feedback callbacks.
   humanURL: https://developers.origamirisk.com/reference/billing-accounts
   baseURL: https://{environment}.origamirisk.com/OrigamiApi
   tags:
@@ -195,12 +105,11 @@ apis:
     url: https://developers.origamirisk.com/reference/billing-accounts
 - aid: origami-risk:origami-risk-actions-api
   name: Origami Risk Actions API
-  description: Real-time and queued platform actions triggered against any domain
-    record — including creating a claim from an incident (the FNOL path), FirstReport,
-    Reserve, Review, RootCause, EDIReport state reporting, AuditResponse, Abstract,
-    AddressValid, AssignSurvey, CorrAction, DataUpdate, DRFScoring, Email, Fax, SMS,
-    MailMerge, Note, Report, RoundRobin, SendMobileForm, StateForm, Task and User
-    actions.
+  description: >-
+    Real-time and queued platform actions triggered against any domain record — including creating a claim
+    from an incident (the FNOL path), FirstReport, Reserve, Review, RootCause, EDIReport state reporting,
+    AuditResponse, Abstract, AddressValid, AssignSurvey, CorrAction, DataUpdate, DRFScoring, Email, Fax,
+    SMS, MailMerge, Note, Report, RoundRobin, SendMobileForm, StateForm, Task and User actions.
   humanURL: https://developers.origamirisk.com/reference/actions
   baseURL: https://{environment}.origamirisk.com/OrigamiApi
   tags:
@@ -223,14 +132,13 @@ apis:
     name: Create a claim from an incident (FNOL) on Origami Risk
 - aid: origami-risk:origami-risk-webhooks-api
   name: Origami Risk Webhooks API
-  description: Inbound webhook surface for the Origami Risk platform. An Origami
-    "webhook handler" is a bespoke endpoint built inside Origami by the services team
-    that an external system posts data into — list the configured handlers, retrieve a
-    named handler's request and response sample schema, and post a payload to it. A
-    separate One Inc surface receives payment-gateway callbacks (payment method
-    acknowledgement, payment feedback, autopay feedback), all called by One Inc into
-    Origami. There is no outbound event subscription, no event catalog and no AsyncAPI
-    document.
+  description: >-
+    Inbound webhook surface for the Origami Risk platform. An Origami "webhook handler" is a bespoke endpoint
+    built inside Origami by the services team that an external system posts data into — list the configured
+    handlers, retrieve a named handler's request and response sample schema, and post a payload to it.
+    A separate One Inc surface receives payment-gateway callbacks (payment method acknowledgement, payment
+    feedback, autopay feedback), all called by One Inc into Origami. There is no outbound event subscription,
+    no event catalog and no AsyncAPI document.
   humanURL: https://developers.origamirisk.com/reference/webhooks
   baseURL: https://{environment}.origamirisk.com/OrigamiApi
   tags:
@@ -248,9 +156,9 @@ apis:
     url: asyncapi/origami-risk-webhooks.yml
 - aid: origami-risk:origami-risk-reports-api
   name: Origami Risk Reports API
-  description: Reporting surface for requesting a report run, retrieving report
-    details and options, validating a report filter, and converting between the
-    platform's view-filter string form and its JSON tree form.
+  description: >-
+    Reporting surface for requesting a report run, retrieving report details and options, validating a
+    report filter, and converting between the platform's view-filter string form and its JSON tree form.
   humanURL: https://developers.origamirisk.com/reference/reports
   baseURL: https://{environment}.origamirisk.com/OrigamiApi
   tags:
@@ -261,7 +169,139 @@ apis:
     url: https://developers.origamirisk.com/docs
   - type: APIReference
     url: https://developers.origamirisk.com/reference/reports
+- aid: origami-risk:origami-risk-authentication-api
+  name: Origami Risk Authentication API
+  description: The Authentication API from Origami Risk — 4 operation(s) for authentication.
+  humanURL: https://developers.origamirisk.com/reference/authentication-methods
+  baseURL: https://{environment}.origamirisk.com/OrigamiApi-v2
+  tags:
+  - Authentication
+  properties:
+  - type: OpenAPI
+    url: openapi/origami-risk-authentication-api-openapi.yml
+  - type: Documentation
+    url: https://developers.origamirisk.com/docs
+  - type: APIReference
+    url: https://developers.origamirisk.com/reference/authentication-methods
+  - type: Authentication
+    url: authentication/origami-risk-authentication.yml
+  - type: APIReference
+    url: https://developers.origamirisk.com/reference/domains-entities
+  - type: DataModel
+    url: data-model/origami-risk-data-model.yml
+  - type: APIReference
+    url: https://developers.origamirisk.com/reference
+  - type: ErrorCatalog
+    url: errors/origami-risk-problem-types.yml
+- aid: origami-risk:origami-risk-hastokenexpired-api
+  name: Origami Risk Has Token Expired API
+  description: The HasTokenExpired API from Origami Risk — 1 operation(s) for hastokenexpired.
+  humanURL: https://developers.origamirisk.com/reference/authentication-methods
+  baseURL: https://{environment}.origamirisk.com/OrigamiApi-v2
+  tags:
+  - HasTokenExpired
+  properties:
+  - type: OpenAPI
+    url: openapi/origami-risk-hastokenexpired-api-openapi.yml
+  - type: Documentation
+    url: https://developers.origamirisk.com/docs
+  - type: APIReference
+    url: https://developers.origamirisk.com/reference/authentication-methods
+  - type: Authentication
+    url: authentication/origami-risk-authentication.yml
+  - type: APIReference
+    url: https://developers.origamirisk.com/reference/domains-entities
+  - type: DataModel
+    url: data-model/origami-risk-data-model.yml
+  - type: APIReference
+    url: https://developers.origamirisk.com/reference
+  - type: ErrorCatalog
+    url: errors/origami-risk-problem-types.yml
+- aid: origami-risk:origami-risk-new-endpoint-1-api
+  name: Origami Risk New Endpoint 1 API
+  description: The New Endpoint 1 API from Origami Risk — 1 operation(s) for new endpoint 1.
+  humanURL: https://developers.origamirisk.com/reference/authentication-methods
+  baseURL: https://{environment}.origamirisk.com/OrigamiApi-v2
+  tags:
+  - New Endpoint 1
+  properties:
+  - type: OpenAPI
+    url: openapi/origami-risk-new-endpoint-1-api-openapi.yml
+  - type: Documentation
+    url: https://developers.origamirisk.com/docs
+  - type: APIReference
+    url: https://developers.origamirisk.com/reference/authentication-methods
+  - type: Authentication
+    url: authentication/origami-risk-authentication.yml
+  - type: APIReference
+    url: https://developers.origamirisk.com/reference/domains-entities
+  - type: DataModel
+    url: data-model/origami-risk-data-model.yml
+  - type: APIReference
+    url: https://developers.origamirisk.com/reference
+  - type: ErrorCatalog
+    url: errors/origami-risk-problem-types.yml
+- aid: origami-risk:origami-risk-new-endpoint-api
+  name: Origami Risk New Endpoint API
+  description: The New Endpoint API from Origami Risk — 1 operation(s) for new endpoint.
+  humanURL: https://developers.origamirisk.com/reference/authentication-methods
+  baseURL: https://{environment}.origamirisk.com/OrigamiApi-v2
+  tags:
+  - New Endpoint
+  properties:
+  - type: OpenAPI
+    url: openapi/origami-risk-new-endpoint-api-openapi.yml
+  - type: Documentation
+    url: https://developers.origamirisk.com/docs
+  - type: APIReference
+    url: https://developers.origamirisk.com/reference/authentication-methods
+  - type: Authentication
+    url: authentication/origami-risk-authentication.yml
+  - type: APIReference
+    url: https://developers.origamirisk.com/reference/domains-entities
+  - type: DataModel
+    url: data-model/origami-risk-data-model.yml
+  - type: APIReference
+    url: https://developers.origamirisk.com/reference
+  - type: ErrorCatalog
+    url: errors/origami-risk-problem-types.yml
+- aid: origami-risk:origami-risk-requests-api
+  name: Origami Risk Requests API
+  description: The Requests API from Origami Risk — 3 operation(s) for requests.
+  humanURL: https://developers.origamirisk.com/reference/authentication-methods
+  baseURL: https://{environment}.origamirisk.com/OrigamiApi-v2
+  tags:
+  - Requests
+  properties:
+  - type: OpenAPI
+    url: openapi/origami-risk-requests-api-openapi.yml
+  - type: Documentation
+    url: https://developers.origamirisk.com/docs
+  - type: APIReference
+    url: https://developers.origamirisk.com/reference/authentication-methods
+  - type: Authentication
+    url: authentication/origami-risk-authentication.yml
+  - type: APIReference
+    url: https://developers.origamirisk.com/reference/domains-entities
+  - type: DataModel
+    url: data-model/origami-risk-data-model.yml
+  - type: APIReference
+    url: https://developers.origamirisk.com/reference
+  - type: ErrorCatalog
+    url: errors/origami-risk-problem-types.yml
 common:
+- type: Overlay
+  url: overlays/origami-risk-authentication-overlay.yaml
+- type: Overlay
+  url: overlays/origami-risk-public-api-overlay.yaml
+- type: AgentSkill
+  url: skills/origami-risk-domain-data-access.md
+- type: Overlay
+  url: overlays/origami-risk-standard-rating-api-overlay.yaml
+- type: Overlay
+  url: overlays/origami-risk-rating-api-overlay.yaml
+- type: AgentSkill
+  url: skills/origami-risk-standard-rating-service.md
 - type: TrustCenter
   url: security/origami-risk-trust-center.yml
 - type: Compliance
