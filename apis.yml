@@ -23,6 +23,17 @@ description: Origami Risk is a Chicago-headquartered risk, safety and insurance 
   authentication is token-based or HMAC against a provisioned account — and no ACORD,
   AL3, IVANS or NGDS conformance is claimed anywhere in the marketing site or the
   developer portal.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: false
+  label: Hosted service · you call their endpoint
+  confidence: medium
+  source:
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 tags:
 - Insurance
