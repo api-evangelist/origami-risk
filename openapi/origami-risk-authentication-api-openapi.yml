@@ -1,0 +1,93 @@
+openapi: 3.2.0
+info:
+  title: Origami Risk Authentication API
+  version: 1.0.0
+  description: 'Operations tagged Authentication across 2 of this provider''s published API definitions: origami-risk-authentication-openapi.json, origami-risk-public-api-openapi.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://{environment}.origamirisk.com/OrigamiApi-v2
+- url: https://{environment}.origamirisk.com/OrigamiApi
+tags:
+- name: Authentication
+paths:
+  /Authentication/HasTokenExpired:
+    get:
+      summary: New Endpoint
+      description: This is your first endpoint! Edit this page to start documenting your API.
+      operationId: get_new-endpoint
+      responses:
+        '200':
+          description: Successful response
+      parameters:
+      - name: Token
+        in: header
+        required: false
+        description: ''
+        schema:
+          type: string
+          default: ''
+      tags:
+      - Authentication
+    servers:
+    - url: https://{environment}.origamirisk.com/OrigamiApi-v2
+  /Authentication/Ping:
+    get:
+      description: ''
+      operationId: get_AuthenticationPing
+      responses:
+        '200':
+          description: ''
+      parameters: []
+      tags:
+      - Authentication
+    servers:
+    - url: https://{environment}.origamirisk.com/OrigamiApi-v2
+  /Authentication/Authenticate-DELETEME:
+    post:
+      description: ''
+      operationId: post_new-endpoint-1
+      responses:
+        '200':
+          description: ''
+      parameters: []
+      x-readme:
+        samples-languages:
+        - shell
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                Account:
+                  type: string
+                User:
+                  type: string
+                Password:
+                  type: string
+                ClientName:
+                  type: string
+              type: object
+      tags:
+      - Authentication
+    servers:
+    - url: https://{environment}.origamirisk.com/OrigamiApi-v2
+  /Authentication/Authenticate:
+    post:
+      description: ''
+      operationId: post_new-endpoint-2
+      responses:
+        '200':
+          description: ''
+      parameters: []
+      tags:
+      - Authentication
+    servers:
+    - url: https://{environment}.origamirisk.com/OrigamiApi
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: Token
+x-refined-from:
+- origami-risk-authentication-openapi.json
+- origami-risk-public-api-openapi.json

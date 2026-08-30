@@ -1,0 +1,27 @@
+openapi: 3.2.0
+info:
+  version: 1.0.0
+  title: Origami Risk Public Has Token Expired API
+servers:
+- url: https://{environment}.origamirisk.com/OrigamiApi
+tags:
+- name: HasTokenExpired
+paths:
+  /HasTokenExpired:
+    get:
+      description: ''
+      operationId: get_HasToken
+      responses:
+        '200':
+          description: ''
+      parameters: []
+      security:
+      - ApiKeyAuth: []
+      tags:
+      - HasTokenExpired
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: Token

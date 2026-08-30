@@ -1,0 +1,262 @@
+openapi: 3.2.0
+info:
+  title: Rating Requests API
+  version: 1.0.0
+servers:
+- url: http://origamirater-standard.dev.dais.com?oas
+tags:
+- name: Requests
+paths:
+  /Requests/sync:
+    post:
+      tags:
+      - Requests
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StandardRatingRequestDto'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/StandardRatingRequestDto'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/StandardRatingRequestDto'
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/SyncRatingResponseDto'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SyncRatingResponseDto'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/SyncRatingResponseDto'
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /Requests/async:
+    post:
+      tags:
+      - Requests
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StandardRatingRequestDto'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/StandardRatingRequestDto'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/StandardRatingRequestDto'
+      responses:
+        '202':
+          description: Accepted
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/AsyncRatingResponseDto'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AsyncRatingResponseDto'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/AsyncRatingResponseDto'
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /Requests/{requestId}:
+    get:
+      tags:
+      - Requests
+      parameters:
+      - name: requestId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/StandardRatingRequestDto2'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StandardRatingRequestDto2'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/StandardRatingRequestDto2'
+        '404':
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+    delete:
+      tags:
+      - Requests
+      parameters:
+      - name: requestId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+        '404':
+          description: Not Found
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+components:
+  schemas:
+    StandardRatingRequestDto2:
+      required:
+      - raterId
+      type: object
+      properties:
+        intakeIds:
+          type:
+          - array
+          - 'null'
+        intakes:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        raterId:
+          $ref: '#/components/schemas/RaterId'
+        raterVersion:
+          $ref: '#/components/schemas/NullableOfRaterVersion'
+        generateWorksheet:
+          type: boolean
+    RaterId: {}
+    RatingResultDetailsDto:
+      type: object
+      properties:
+        intakeId:
+          $ref: '#/components/schemas/IntakeId'
+        raterResult:
+          type:
+          - object
+          - 'null'
+        errors:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+    RequestId: {}
+    NullableOfRaterVersion: {}
+    StandardRatingRequestDto:
+      required:
+      - raterId
+      type:
+      - object
+      - 'null'
+      properties:
+        intakeIds:
+          type:
+          - array
+          - 'null'
+        intakes:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        raterId:
+          $ref: '#/components/schemas/RaterId'
+        raterVersion:
+          $ref: '#/components/schemas/NullableOfRaterVersion'
+        generateWorksheet:
+          type: boolean
+    ProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+        title:
+          type:
+          - string
+          - 'null'
+        status:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+        instance:
+          type:
+          - string
+          - 'null'
+    IntakeId: {}
+    SyncRatingResponseDto:
+      required:
+      - ratingResults
+      type: object
+      properties:
+        requestId:
+          $ref: '#/components/schemas/RequestId'
+        ratingResults:
+          type: array
+          items:
+            $ref: '#/components/schemas/RatingResultDetailsDto'
+        failedToQueueErrors:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            type: string
+    AsyncRatingResponseDto:
+      required:
+      - requestId
+      type: object
+      properties:
+        requestId:
+          $ref: '#/components/schemas/RequestId'

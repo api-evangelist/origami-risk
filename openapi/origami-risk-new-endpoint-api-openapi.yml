@@ -1,0 +1,32 @@
+openapi: 3.2.0
+info:
+  title: Origami Risk New Endpoint API
+  version: 1.0.0
+  description: 'Operations tagged New Endpoint across 2 of this provider''s published API definitions: origami-risk-public-api-openapi.json, origami-risk-rating-api-openapi.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://{environment}.origamirisk.com/OrigamiApi
+- url: http://origamirater-standard.dev.dais.com
+tags:
+- name: New Endpoint
+paths:
+  /new-endpoint:
+    get:
+      summary: New Endpoint
+      description: This is your first endpoint! Edit this page to start documenting your API.
+      operationId: get_new-endpoint
+      responses:
+        '200':
+          description: Successful response
+      tags:
+      - New Endpoint
+    servers:
+    - url: https://{environment}.origamirisk.com/OrigamiApi
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: Token
+x-refined-from:
+- origami-risk-public-api-openapi.json
+- origami-risk-rating-api-openapi.json

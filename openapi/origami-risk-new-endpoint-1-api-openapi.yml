@@ -1,0 +1,27 @@
+openapi: 3.2.0
+info:
+  version: 1.0.0
+  title: Origami Risk Public New Endpoint 1 API
+servers:
+- url: https://{environment}.origamirisk.com/OrigamiApi
+tags:
+- name: New Endpoint 1
+paths:
+  /new-endpoint-1:
+    get:
+      description: ''
+      operationId: get_new-endpoint-1
+      responses:
+        '200':
+          description: ''
+      parameters: []
+      security:
+      - ApiKeyAuth: []
+      tags:
+      - New Endpoint 1
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: Token
