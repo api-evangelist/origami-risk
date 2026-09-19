@@ -78,7 +78,7 @@ apis:
   tags:
   - Quotes
   - Bind
-  - Rating
+  - Ratings
   - Underwriting
   tags_raw:
   - Quote
@@ -102,6 +102,10 @@ apis:
   humanURL: https://developers.origamirisk.com/reference/policies
   baseURL: https://{environment}.origamirisk.com/OrigamiApi
   tags:
+  - Policy Administration
+  - Issue
+  - Endorsements
+  tags_raw:
   - Policy Administration
   - Issue
   - Endorsement
