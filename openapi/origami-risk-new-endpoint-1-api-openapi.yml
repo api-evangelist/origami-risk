@@ -19,6 +19,8 @@ paths:
       - ApiKeyAuth: []
       tags:
       - New Endpoint 1
+      summary: Get new endpoint 1
+      x-summary-source: derived
 components:
   securitySchemes:
     ApiKeyAuth:

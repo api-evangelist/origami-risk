@@ -39,6 +39,8 @@ paths:
       parameters: []
       tags:
       - Authentication
+      summary: Get authentication ping
+      x-summary-source: derived
     servers:
     - url: https://{environment}.origamirisk.com/OrigamiApi-v2
   /Authentication/Authenticate-DELETEME:
@@ -68,6 +70,8 @@ paths:
               type: object
       tags:
       - Authentication
+      summary: Post new endpoint 1
+      x-summary-source: derived
     servers:
     - url: https://{environment}.origamirisk.com/OrigamiApi-v2
   /Authentication/Authenticate:
@@ -80,6 +84,8 @@ paths:
       parameters: []
       tags:
       - Authentication
+      summary: Post new endpoint 2
+      x-summary-source: derived
     servers:
     - url: https://{environment}.origamirisk.com/OrigamiApi
 components:

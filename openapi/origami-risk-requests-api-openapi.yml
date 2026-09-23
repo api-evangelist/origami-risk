@@ -47,6 +47,10 @@ paths:
             text/json:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
+      summary: Create requests sync
+      x-summary-source: derived
+      operationId: postRequestsSync
+      x-operation-id-source: derived
   /Requests/async:
     post:
       tags:
@@ -87,6 +91,10 @@ paths:
             text/json:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
+      summary: Create requests async
+      x-summary-source: derived
+      operationId: postRequestsAsync
+      x-operation-id-source: derived
   /Requests/{requestId}:
     get:
       tags:
@@ -123,6 +131,10 @@ paths:
             text/json:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
+      summary: Get requests by request id
+      x-summary-source: derived
+      operationId: getRequestsByRequestId
+      x-operation-id-source: derived
     delete:
       tags:
       - Requests
@@ -147,30 +159,30 @@ paths:
             text/json:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
+      summary: Delete requests by request id
+      x-summary-source: derived
+      operationId: deleteRequestsByRequestId
+      x-operation-id-source: derived
 components:
   schemas:
-    StandardRatingRequestDto2:
+    NullableOfRaterVersion: {}
+    SyncRatingResponseDto:
       required:
-      - raterId
+      - ratingResults
       type: object
       properties:
-        intakeIds:
-          type:
-          - array
-          - 'null'
-        intakes:
-          type:
-          - array
-          - 'null'
+        requestId:
+          $ref: '#/components/schemas/RequestId'
+        ratingResults:
+          type: array
           items:
+            $ref: '#/components/schemas/RatingResultDetailsDto'
+        failedToQueueErrors:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
             type: string
-        raterId:
-          $ref: '#/components/schemas/RaterId'
-        raterVersion:
-          $ref: '#/components/schemas/NullableOfRaterVersion'
-        generateWorksheet:
-          type: boolean
-    RaterId: {}
     RatingResultDetailsDto:
       type: object
       properties:
@@ -187,7 +199,15 @@ components:
           items:
             type: string
     RequestId: {}
-    NullableOfRaterVersion: {}
+    IntakeId: {}
+    RaterId: {}
+    AsyncRatingResponseDto:
+      required:
+      - requestId
+      type: object
+      properties:
+        requestId:
+          $ref: '#/components/schemas/RequestId'
     StandardRatingRequestDto:
       required:
       - raterId
@@ -235,28 +255,24 @@ components:
           type:
           - string
           - 'null'
-    IntakeId: {}
-    SyncRatingResponseDto:
+    StandardRatingRequestDto2:
       required:
-      - ratingResults
+      - raterId
       type: object
       properties:
-        requestId:
-          $ref: '#/components/schemas/RequestId'
-        ratingResults:
-          type: array
-          items:
-            $ref: '#/components/schemas/RatingResultDetailsDto'
-        failedToQueueErrors:
+        intakeIds:
           type:
-          - object
+          - array
           - 'null'
-          additionalProperties:
+        intakes:
+          type:
+          - array
+          - 'null'
+          items:
             type: string
-    AsyncRatingResponseDto:
-      required:
-      - requestId
-      type: object
-      properties:
-        requestId:
-          $ref: '#/components/schemas/RequestId'
+        raterId:
+          $ref: '#/components/schemas/RaterId'
+        raterVersion:
+          $ref: '#/components/schemas/NullableOfRaterVersion'
+        generateWorksheet:
+          type: boolean

@@ -1,0 +1,47 @@
+{
+  "provider": "origami-risk",
+  "sources": [
+    "_original/origami-risk-authentication-openapi.json",
+    "_original/origami-risk-public-api-openapi.json",
+    "_original/origami-risk-standard-rating-api-openapi.json"
+  ],
+  "outputs": [
+    "origami-risk-authentication-api-openapi.yml",
+    "origami-risk-hastokenexpired-api-openapi.yml",
+    "origami-risk-new-endpoint-api-openapi.yml",
+    "origami-risk-new-endpoint-1-api-openapi.yml",
+    "origami-risk-requests-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [
+    "1 archived document(s) dropped as subsets of other archived documents",
+    "sourced from openapi/_original/ (3 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "origami-risk-authentication-openapi.json: upgraded openapi 3.0.0 -> OpenAPI 3.2.0",
+    "origami-risk-authentication-openapi.json: tagged paths GET /Authentication/HasTokenExpired -> Authentication",
+    "origami-risk-authentication-openapi.json: tagged paths GET /Authentication/Ping -> Authentication",
+    "origami-risk-authentication-openapi.json: tagged paths POST /Authentication/Authenticate-DELETEME -> Authentication",
+    "origami-risk-authentication-openapi.json: declared missing tag: Authentication",
+    "origami-risk-public-api-openapi.json: upgraded openapi 3.0.0 -> OpenAPI 3.2.0",
+    "origami-risk-public-api-openapi.json: tagged paths GET /new-endpoint -> New Endpoint",
+    "origami-risk-public-api-openapi.json: tagged paths GET /HasTokenExpired -> HasTokenExpired",
+    "origami-risk-public-api-openapi.json: tagged paths GET /new-endpoint-1 -> New Endpoint 1",
+    "origami-risk-public-api-openapi.json: tagged paths POST /Authentication/Authenticate -> Authentication",
+    "origami-risk-public-api-openapi.json: declared missing tag: Authentication",
+    "origami-risk-public-api-openapi.json: declared missing tag: HasTokenExpired",
+    "origami-risk-public-api-openapi.json: declared missing tag: New Endpoint",
+    "origami-risk-public-api-openapi.json: declared missing tag: New Endpoint 1",
+    "origami-risk-standard-rating-api-openapi.json: upgraded openapi 3.0.1 -> OpenAPI 3.2.0",
+    "tag 'Authentication' spans 2 source specs (origami-risk-authentication-openapi.json, origami-risk-public-api-openapi.json): per-path servers applied",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "_original/origami-risk-rating-api-openapi.json: archived document superseded by a larger archived document",
+    "origami-risk-authentication-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "origami-risk-hastokenexpired-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "origami-risk-new-endpoint-1-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "origami-risk-new-endpoint-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "origami-risk-requests-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
+}

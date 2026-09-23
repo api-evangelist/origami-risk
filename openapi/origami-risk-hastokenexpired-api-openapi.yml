@@ -19,6 +19,8 @@ paths:
       - ApiKeyAuth: []
       tags:
       - HasTokenExpired
+      summary: Get has token
+      x-summary-source: derived
 components:
   securitySchemes:
     ApiKeyAuth:
