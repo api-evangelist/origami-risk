@@ -166,6 +166,84 @@ paths:
 components:
   schemas:
     NullableOfRaterVersion: {}
+    ProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+        title:
+          type:
+          - string
+          - 'null'
+        status:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+        instance:
+          type:
+          - string
+          - 'null'
+    IntakeId: {}
+    RaterId: {}
+    StandardRatingRequestDto:
+      required:
+      - raterId
+      type:
+      - object
+      - 'null'
+      properties:
+        intakeIds:
+          type:
+          - array
+          - 'null'
+        intakes:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        raterId:
+          $ref: '#/components/schemas/RaterId'
+        raterVersion:
+          $ref: '#/components/schemas/NullableOfRaterVersion'
+        generateWorksheet:
+          type: boolean
+    RequestId: {}
+    AsyncRatingResponseDto:
+      required:
+      - requestId
+      type: object
+      properties:
+        requestId:
+          $ref: '#/components/schemas/RequestId'
+    StandardRatingRequestDto2:
+      required:
+      - raterId
+      type: object
+      properties:
+        intakeIds:
+          type:
+          - array
+          - 'null'
+        intakes:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        raterId:
+          $ref: '#/components/schemas/RaterId'
+        raterVersion:
+          $ref: '#/components/schemas/NullableOfRaterVersion'
+        generateWorksheet:
+          type: boolean
     SyncRatingResponseDto:
       required:
       - ratingResults
@@ -198,81 +276,3 @@ components:
           - 'null'
           items:
             type: string
-    RequestId: {}
-    IntakeId: {}
-    RaterId: {}
-    AsyncRatingResponseDto:
-      required:
-      - requestId
-      type: object
-      properties:
-        requestId:
-          $ref: '#/components/schemas/RequestId'
-    StandardRatingRequestDto:
-      required:
-      - raterId
-      type:
-      - object
-      - 'null'
-      properties:
-        intakeIds:
-          type:
-          - array
-          - 'null'
-        intakes:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-        raterId:
-          $ref: '#/components/schemas/RaterId'
-        raterVersion:
-          $ref: '#/components/schemas/NullableOfRaterVersion'
-        generateWorksheet:
-          type: boolean
-    ProblemDetails:
-      type: object
-      properties:
-        type:
-          type:
-          - string
-          - 'null'
-        title:
-          type:
-          - string
-          - 'null'
-        status:
-          type:
-          - integer
-          - 'null'
-          format: int32
-        detail:
-          type:
-          - string
-          - 'null'
-        instance:
-          type:
-          - string
-          - 'null'
-    StandardRatingRequestDto2:
-      required:
-      - raterId
-      type: object
-      properties:
-        intakeIds:
-          type:
-          - array
-          - 'null'
-        intakes:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-        raterId:
-          $ref: '#/components/schemas/RaterId'
-        raterVersion:
-          $ref: '#/components/schemas/NullableOfRaterVersion'
-        generateWorksheet:
-          type: boolean
