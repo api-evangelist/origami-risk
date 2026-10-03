@@ -165,7 +165,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    NullableOfRaterVersion: {}
     ProblemDetails:
       type: object
       properties:
@@ -190,32 +189,26 @@ components:
           type:
           - string
           - 'null'
-    IntakeId: {}
-    RaterId: {}
-    StandardRatingRequestDto:
+    SyncRatingResponseDto:
       required:
-      - raterId
-      type:
-      - object
-      - 'null'
+      - ratingResults
+      type: object
       properties:
-        intakeIds:
-          type:
-          - array
-          - 'null'
-        intakes:
-          type:
-          - array
-          - 'null'
+        requestId:
+          $ref: '#/components/schemas/RequestId'
+        ratingResults:
+          type: array
           items:
+            $ref: '#/components/schemas/RatingResultDetailsDto'
+        failedToQueueErrors:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
             type: string
-        raterId:
-          $ref: '#/components/schemas/RaterId'
-        raterVersion:
-          $ref: '#/components/schemas/NullableOfRaterVersion'
-        generateWorksheet:
-          type: boolean
-    RequestId: {}
+    IntakeId: {}
+    NullableOfRaterVersion: {}
+    RaterId: {}
     AsyncRatingResponseDto:
       required:
       - requestId
@@ -244,23 +237,6 @@ components:
           $ref: '#/components/schemas/NullableOfRaterVersion'
         generateWorksheet:
           type: boolean
-    SyncRatingResponseDto:
-      required:
-      - ratingResults
-      type: object
-      properties:
-        requestId:
-          $ref: '#/components/schemas/RequestId'
-        ratingResults:
-          type: array
-          items:
-            $ref: '#/components/schemas/RatingResultDetailsDto'
-        failedToQueueErrors:
-          type:
-          - object
-          - 'null'
-          additionalProperties:
-            type: string
     RatingResultDetailsDto:
       type: object
       properties:
@@ -276,3 +252,27 @@ components:
           - 'null'
           items:
             type: string
+    RequestId: {}
+    StandardRatingRequestDto:
+      required:
+      - raterId
+      type:
+      - object
+      - 'null'
+      properties:
+        intakeIds:
+          type:
+          - array
+          - 'null'
+        intakes:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        raterId:
+          $ref: '#/components/schemas/RaterId'
+        raterVersion:
+          $ref: '#/components/schemas/NullableOfRaterVersion'
+        generateWorksheet:
+          type: boolean
