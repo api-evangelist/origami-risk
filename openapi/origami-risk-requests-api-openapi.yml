@@ -165,93 +165,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    ProblemDetails:
-      type: object
-      properties:
-        type:
-          type:
-          - string
-          - 'null'
-        title:
-          type:
-          - string
-          - 'null'
-        status:
-          type:
-          - integer
-          - 'null'
-          format: int32
-        detail:
-          type:
-          - string
-          - 'null'
-        instance:
-          type:
-          - string
-          - 'null'
-    SyncRatingResponseDto:
-      required:
-      - ratingResults
-      type: object
-      properties:
-        requestId:
-          $ref: '#/components/schemas/RequestId'
-        ratingResults:
-          type: array
-          items:
-            $ref: '#/components/schemas/RatingResultDetailsDto'
-        failedToQueueErrors:
-          type:
-          - object
-          - 'null'
-          additionalProperties:
-            type: string
-    IntakeId: {}
-    NullableOfRaterVersion: {}
-    RaterId: {}
-    AsyncRatingResponseDto:
-      required:
-      - requestId
-      type: object
-      properties:
-        requestId:
-          $ref: '#/components/schemas/RequestId'
-    StandardRatingRequestDto2:
-      required:
-      - raterId
-      type: object
-      properties:
-        intakeIds:
-          type:
-          - array
-          - 'null'
-        intakes:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-        raterId:
-          $ref: '#/components/schemas/RaterId'
-        raterVersion:
-          $ref: '#/components/schemas/NullableOfRaterVersion'
-        generateWorksheet:
-          type: boolean
-    RatingResultDetailsDto:
-      type: object
-      properties:
-        intakeId:
-          $ref: '#/components/schemas/IntakeId'
-        raterResult:
-          type:
-          - object
-          - 'null'
-        errors:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
     RequestId: {}
     StandardRatingRequestDto:
       required:
@@ -276,3 +189,90 @@ components:
           $ref: '#/components/schemas/NullableOfRaterVersion'
         generateWorksheet:
           type: boolean
+    SyncRatingResponseDto:
+      required:
+      - ratingResults
+      type: object
+      properties:
+        requestId:
+          $ref: '#/components/schemas/RequestId'
+        ratingResults:
+          type: array
+          items:
+            $ref: '#/components/schemas/RatingResultDetailsDto'
+        failedToQueueErrors:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            type: string
+    NullableOfRaterVersion: {}
+    AsyncRatingResponseDto:
+      required:
+      - requestId
+      type: object
+      properties:
+        requestId:
+          $ref: '#/components/schemas/RequestId'
+    RaterId: {}
+    RatingResultDetailsDto:
+      type: object
+      properties:
+        intakeId:
+          $ref: '#/components/schemas/IntakeId'
+        raterResult:
+          type:
+          - object
+          - 'null'
+        errors:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+    StandardRatingRequestDto2:
+      required:
+      - raterId
+      type: object
+      properties:
+        intakeIds:
+          type:
+          - array
+          - 'null'
+        intakes:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        raterId:
+          $ref: '#/components/schemas/RaterId'
+        raterVersion:
+          $ref: '#/components/schemas/NullableOfRaterVersion'
+        generateWorksheet:
+          type: boolean
+    IntakeId: {}
+    ProblemDetails:
+      type: object
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+        title:
+          type:
+          - string
+          - 'null'
+        status:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        detail:
+          type:
+          - string
+          - 'null'
+        instance:
+          type:
+          - string
+          - 'null'
