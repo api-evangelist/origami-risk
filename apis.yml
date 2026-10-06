@@ -63,7 +63,7 @@ tags:
 - Insurtech
 - Billing
 created: '2026-07-25'
-modified: '2026-07-25'
+modified: '2026-10-06'
 specificationVersion: '0.23'
 apis:
 - aid: origami-risk:origami-risk-quotes-and-proposals-api
@@ -320,6 +320,8 @@ apis:
   - type: ErrorCatalog
     url: errors/origami-risk-problem-types.yml
 common:
+- url: https://www.origamirisk.com/feed/
+  type: BlogRSS
 - type: Overlay
   url: overlays/origami-risk-authentication-overlay.yaml
 - type: Overlay
