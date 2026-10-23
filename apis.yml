@@ -320,6 +320,8 @@ apis:
   - type: ErrorCatalog
     url: errors/origami-risk-problem-types.yml
 common:
+- type: PostmanWorkspace
+  url: https://www.postman.com/kinlaneapi/origami-risk/overview
 - url: https://www.origamirisk.com/feed/
   type: BlogRSS
 - type: Overlay
