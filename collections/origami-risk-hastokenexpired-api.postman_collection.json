@@ -1,0 +1,106 @@
+{
+  "info": {
+    "_postman_id": "4edc0324-c704-4a9c-a8b3-2df6bc43e0b6",
+    "name": "Origami Risk Public Has Token Expired API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T01:50:19.000Z",
+    "updatedAt": "2026-10-22T01:50:20.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-4edc0324-c704-4a9c-a8b3-2df6bc43e0b6"
+  },
+  "item": [
+    {
+      "name": "HasTokenExpired",
+      "item": [
+        {
+          "name": "Get has token",
+          "id": "d6c3295f-3edc-4fb9-9bc7-6a6ea0473452",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Token",
+                  "type": "string"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}",
+                  "type": "string"
+                },
+                {
+                  "key": "in",
+                  "value": "header",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/HasTokenExpired",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "HasTokenExpired"
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "548967b6-dca3-4889-8284-a4f1a10876fa",
+              "name": "New Response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "Added as a part of security scheme: apikey",
+                    "key": "Token",
+                    "value": "<API Key>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/HasTokenExpired",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "HasTokenExpired"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-22T01:50:20.000Z",
+              "updatedAt": "2026-10-22T01:50:20.000Z",
+              "uid": "35240-548967b6-dca3-4889-8284-a4f1a10876fa"
+            }
+          ],
+          "createdAt": "2026-10-22T01:50:20.000Z",
+          "updatedAt": "2026-10-22T01:50:20.000Z",
+          "uid": "35240-d6c3295f-3edc-4fb9-9bc7-6a6ea0473452"
+        }
+      ],
+      "id": "d9d1386e-0163-40e3-a0d3-08f261c96543",
+      "createdAt": "2026-10-22T01:50:20.000Z",
+      "updatedAt": "2026-10-22T01:50:20.000Z",
+      "uid": "35240-d9d1386e-0163-40e3-a0d3-08f261c96543"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://{{environment}}.origamirisk.com/OrigamiApi"
+    }
+  ]
+}

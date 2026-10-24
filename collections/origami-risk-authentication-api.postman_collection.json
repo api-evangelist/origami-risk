@@ -1,0 +1,322 @@
+{
+  "info": {
+    "_postman_id": "198136ac-d332-44d5-8559-01218adc614e",
+    "name": "Origami Risk Authentication API",
+    "description": "Operations tagged Authentication across 2 of this provider's published API definitions: origami-risk-authentication-openapi.json, origami-risk-public-api-openapi.json. Each path carries the servers of the definition it was published in.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T01:50:16.000Z",
+    "updatedAt": "2026-10-22T01:50:17.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-198136ac-d332-44d5-8559-01218adc614e"
+  },
+  "item": [
+    {
+      "name": "Authentication",
+      "item": [
+        {
+          "name": "HasTokenExpired",
+          "item": [
+            {
+              "name": "New Endpoint",
+              "id": "b4af4bcc-9392-4c3d-9501-4fbab8e46172",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Token",
+                    "value": ""
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/Authentication/HasTokenExpired",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "Authentication",
+                    "HasTokenExpired"
+                  ]
+                },
+                "description": "This is your first endpoint! Edit this page to start documenting your API."
+              },
+              "response": [
+                {
+                  "id": "9f92cffd-f448-4350-83ab-409c1461c80c",
+                  "name": "Successful response",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/Authentication/HasTokenExpired",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "Authentication",
+                        "HasTokenExpired"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T01:50:17.000Z",
+                  "updatedAt": "2026-10-22T01:50:17.000Z",
+                  "uid": "35240-9f92cffd-f448-4350-83ab-409c1461c80c"
+                }
+              ],
+              "createdAt": "2026-10-22T01:50:17.000Z",
+              "updatedAt": "2026-10-22T01:50:17.000Z",
+              "uid": "35240-b4af4bcc-9392-4c3d-9501-4fbab8e46172"
+            }
+          ],
+          "id": "02f5f918-1e95-4139-9fa9-1a8940608a6d",
+          "createdAt": "2026-10-22T01:50:17.000Z",
+          "updatedAt": "2026-10-22T01:50:17.000Z",
+          "uid": "35240-02f5f918-1e95-4139-9fa9-1a8940608a6d"
+        },
+        {
+          "name": "Ping",
+          "item": [
+            {
+              "name": "Get authentication ping",
+              "id": "cbc7c36b-7af1-451e-8e44-34d26ee38ca8",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/Authentication/Ping",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "Authentication",
+                    "Ping"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "id": "685a3c53-2fd4-490c-b9a2-f8c5a37c7420",
+                  "name": "New Response",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "{{baseUrl}}/Authentication/Ping",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "Authentication",
+                        "Ping"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T01:50:17.000Z",
+                  "updatedAt": "2026-10-22T01:50:17.000Z",
+                  "uid": "35240-685a3c53-2fd4-490c-b9a2-f8c5a37c7420"
+                }
+              ],
+              "createdAt": "2026-10-22T01:50:17.000Z",
+              "updatedAt": "2026-10-22T01:50:17.000Z",
+              "uid": "35240-cbc7c36b-7af1-451e-8e44-34d26ee38ca8"
+            }
+          ],
+          "id": "66e44965-284b-45db-b74e-aa8bb94d591c",
+          "createdAt": "2026-10-22T01:50:17.000Z",
+          "updatedAt": "2026-10-22T01:50:17.000Z",
+          "uid": "35240-66e44965-284b-45db-b74e-aa8bb94d591c"
+        },
+        {
+          "name": "Authenticate-DELETEME",
+          "item": [
+            {
+              "name": "Post new endpoint 1",
+              "id": "628fe4f3-cf76-4f16-850e-d666fe91bffc",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"Account\": \"<string>\",\n  \"User\": \"<string>\",\n  \"Password\": \"<string>\",\n  \"ClientName\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/Authentication/Authenticate-DELETEME",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "Authentication",
+                    "Authenticate-DELETEME"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "id": "0eb37b48-0c99-44e1-a520-68c7cc1cba75",
+                  "name": "New Response",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"Account\": \"<string>\",\n  \"User\": \"<string>\",\n  \"Password\": \"<string>\",\n  \"ClientName\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/Authentication/Authenticate-DELETEME",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "Authentication",
+                        "Authenticate-DELETEME"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T01:50:17.000Z",
+                  "updatedAt": "2026-10-22T01:50:17.000Z",
+                  "uid": "35240-0eb37b48-0c99-44e1-a520-68c7cc1cba75"
+                }
+              ],
+              "createdAt": "2026-10-22T01:50:17.000Z",
+              "updatedAt": "2026-10-22T01:50:17.000Z",
+              "uid": "35240-628fe4f3-cf76-4f16-850e-d666fe91bffc"
+            }
+          ],
+          "id": "065218bc-3190-4f4a-9dca-ffea7adadbb3",
+          "createdAt": "2026-10-22T01:50:17.000Z",
+          "updatedAt": "2026-10-22T01:50:17.000Z",
+          "uid": "35240-065218bc-3190-4f4a-9dca-ffea7adadbb3"
+        },
+        {
+          "name": "Authenticate",
+          "item": [
+            {
+              "name": "Post new endpoint 2",
+              "id": "56b8022a-672f-42ac-88bb-d88ef00d6faf",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/Authentication/Authenticate",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "Authentication",
+                    "Authenticate"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "id": "74df69ac-9783-4362-957b-776e4382816c",
+                  "name": "New Response",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [],
+                    "url": {
+                      "raw": "{{baseUrl}}/Authentication/Authenticate",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "Authentication",
+                        "Authenticate"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T01:50:17.000Z",
+                  "updatedAt": "2026-10-22T01:50:17.000Z",
+                  "uid": "35240-74df69ac-9783-4362-957b-776e4382816c"
+                }
+              ],
+              "createdAt": "2026-10-22T01:50:17.000Z",
+              "updatedAt": "2026-10-22T01:50:17.000Z",
+              "uid": "35240-56b8022a-672f-42ac-88bb-d88ef00d6faf"
+            }
+          ],
+          "id": "70a087ce-353a-4560-8a75-e92209cdc1d3",
+          "createdAt": "2026-10-22T01:50:17.000Z",
+          "updatedAt": "2026-10-22T01:50:17.000Z",
+          "uid": "35240-70a087ce-353a-4560-8a75-e92209cdc1d3"
+        }
+      ],
+      "id": "1fa49341-2c42-4a18-bffd-d1866d61c29e",
+      "createdAt": "2026-10-22T01:50:17.000Z",
+      "updatedAt": "2026-10-22T01:50:17.000Z",
+      "uid": "35240-1fa49341-2c42-4a18-bffd-d1866d61c29e"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://{{environment}}.origamirisk.com/OrigamiApi-v2"
+    }
+  ]
+}

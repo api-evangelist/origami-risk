@@ -1,0 +1,81 @@
+{
+  "info": {
+    "_postman_id": "69a3de26-9fdd-4ceb-a71b-21cb5b8c0ea0",
+    "name": "Origami Risk Public New Endpoint API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T01:50:33.000Z",
+    "updatedAt": "2026-10-22T01:50:33.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-69a3de26-9fdd-4ceb-a71b-21cb5b8c0ea0"
+  },
+  "item": [
+    {
+      "name": "new-endpoint",
+      "item": [
+        {
+          "name": "New Endpoint",
+          "id": "6fa14f41-9472-409b-a229-d21e5749a8ec",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/new-endpoint",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "new-endpoint"
+              ]
+            },
+            "description": "This is your first endpoint! Edit this page to start documenting your API."
+          },
+          "response": [
+            {
+              "id": "8384c331-82fb-486a-b95d-43eaf144b1f0",
+              "name": "Successful response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/new-endpoint",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "new-endpoint"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "responseTime": null,
+              "body": null,
+              "createdAt": "2026-10-22T01:50:34.000Z",
+              "updatedAt": "2026-10-22T01:50:34.000Z",
+              "uid": "35240-8384c331-82fb-486a-b95d-43eaf144b1f0"
+            }
+          ],
+          "createdAt": "2026-10-22T01:50:34.000Z",
+          "updatedAt": "2026-10-22T01:50:34.000Z",
+          "uid": "35240-6fa14f41-9472-409b-a229-d21e5749a8ec"
+        }
+      ],
+      "id": "4b0d282b-8d68-4ed9-a7d7-ac5e0ffd67ca",
+      "createdAt": "2026-10-22T01:50:34.000Z",
+      "updatedAt": "2026-10-22T01:50:34.000Z",
+      "uid": "35240-4b0d282b-8d68-4ed9-a7d7-ac5e0ffd67ca"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://{{environment}}.origamirisk.com/OrigamiApi"
+    }
+  ]
+}

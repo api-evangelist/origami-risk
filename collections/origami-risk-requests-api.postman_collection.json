@@ -1,0 +1,593 @@
+{
+  "info": {
+    "_postman_id": "f16233a0-4b50-4394-8fdc-16d70e47053d",
+    "name": "Rating Requests API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T01:50:40.000Z",
+    "updatedAt": "2026-10-22T01:50:41.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-f16233a0-4b50-4394-8fdc-16d70e47053d"
+  },
+  "item": [
+    {
+      "name": "Requests",
+      "item": [
+        {
+          "name": "sync",
+          "item": [
+            {
+              "name": "Create requests sync",
+              "id": "8f326ba0-44c0-40f1-a595-4a2df789a6f4",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"raterId\": {},\n  \"intakeIds\": \"<array,null>\",\n  \"intakes\": \"<array,null>\",\n  \"raterVersion\": {},\n  \"generateWorksheet\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/Requests/sync",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "Requests",
+                    "sync"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "id": "06268351-7868-4491-b078-8778e80b24a2",
+                  "name": "OK",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "text/plain"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"raterId\": {},\n  \"intakeIds\": \"<array,null>\",\n  \"intakes\": \"<array,null>\",\n  \"raterVersion\": {},\n  \"generateWorksheet\": \"<boolean>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/Requests/sync",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "Requests",
+                        "sync"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"ratingResults\": [\n    {\n      \"intakeId\": {},\n      \"raterResult\": \"<object,null>\",\n      \"errors\": \"<array,null>\"\n    },\n    {\n      \"intakeId\": {},\n      \"raterResult\": \"<object,null>\",\n      \"errors\": \"<array,null>\"\n    }\n  ],\n  \"requestId\": {},\n  \"failedToQueueErrors\": \"<object,null>\"\n}",
+                  "createdAt": "2026-10-22T01:50:41.000Z",
+                  "updatedAt": "2026-10-22T01:50:41.000Z",
+                  "uid": "35240-06268351-7868-4491-b078-8778e80b24a2"
+                },
+                {
+                  "id": "5917fd4a-dff3-477c-b1c3-7aa55e1dfcca",
+                  "name": "Bad Request",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "text/plain"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"raterId\": {},\n  \"intakeIds\": \"<array,null>\",\n  \"intakes\": \"<array,null>\",\n  \"raterVersion\": {},\n  \"generateWorksheet\": \"<boolean>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/Requests/sync",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "Requests",
+                        "sync"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"type\": \"<string,null>\",\n  \"title\": \"<string,null>\",\n  \"status\": \"<integer,null>\",\n  \"detail\": \"<string,null>\",\n  \"instance\": \"<string,null>\"\n}",
+                  "createdAt": "2026-10-22T01:50:41.000Z",
+                  "updatedAt": "2026-10-22T01:50:41.000Z",
+                  "uid": "35240-5917fd4a-dff3-477c-b1c3-7aa55e1dfcca"
+                }
+              ],
+              "createdAt": "2026-10-22T01:50:41.000Z",
+              "updatedAt": "2026-10-22T01:50:41.000Z",
+              "uid": "35240-8f326ba0-44c0-40f1-a595-4a2df789a6f4"
+            }
+          ],
+          "id": "1c284bc2-2301-4493-85ad-0684db30a094",
+          "createdAt": "2026-10-22T01:50:41.000Z",
+          "updatedAt": "2026-10-22T01:50:41.000Z",
+          "uid": "35240-1c284bc2-2301-4493-85ad-0684db30a094"
+        },
+        {
+          "name": "async",
+          "item": [
+            {
+              "name": "Create requests async",
+              "id": "6e54e0a5-681e-489d-81e3-a995a595ef0b",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"raterId\": {},\n  \"intakeIds\": \"<array,null>\",\n  \"intakes\": \"<array,null>\",\n  \"raterVersion\": {},\n  \"generateWorksheet\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/Requests/async",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "Requests",
+                    "async"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "id": "22b48993-c8f2-47c7-8947-c39800cb7117",
+                  "name": "Accepted",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "text/plain"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"raterId\": {},\n  \"intakeIds\": \"<array,null>\",\n  \"intakes\": \"<array,null>\",\n  \"raterVersion\": {},\n  \"generateWorksheet\": \"<boolean>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/Requests/async",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "Requests",
+                        "async"
+                      ]
+                    }
+                  },
+                  "status": "Accepted",
+                  "code": 202,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"requestId\": {}\n}",
+                  "createdAt": "2026-10-22T01:50:41.000Z",
+                  "updatedAt": "2026-10-22T01:50:41.000Z",
+                  "uid": "35240-22b48993-c8f2-47c7-8947-c39800cb7117"
+                },
+                {
+                  "id": "281b86dd-26a4-4b8a-b1d6-435581afc4eb",
+                  "name": "Bad Request",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "text/plain"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"raterId\": {},\n  \"intakeIds\": \"<array,null>\",\n  \"intakes\": \"<array,null>\",\n  \"raterVersion\": {},\n  \"generateWorksheet\": \"<boolean>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/Requests/async",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "Requests",
+                        "async"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"type\": \"<string,null>\",\n  \"title\": \"<string,null>\",\n  \"status\": \"<integer,null>\",\n  \"detail\": \"<string,null>\",\n  \"instance\": \"<string,null>\"\n}",
+                  "createdAt": "2026-10-22T01:50:41.000Z",
+                  "updatedAt": "2026-10-22T01:50:41.000Z",
+                  "uid": "35240-281b86dd-26a4-4b8a-b1d6-435581afc4eb"
+                }
+              ],
+              "createdAt": "2026-10-22T01:50:41.000Z",
+              "updatedAt": "2026-10-22T01:50:41.000Z",
+              "uid": "35240-6e54e0a5-681e-489d-81e3-a995a595ef0b"
+            }
+          ],
+          "id": "754d6e54-e89a-46ac-be9c-52496f177f11",
+          "createdAt": "2026-10-22T01:50:41.000Z",
+          "updatedAt": "2026-10-22T01:50:41.000Z",
+          "uid": "35240-754d6e54-e89a-46ac-be9c-52496f177f11"
+        },
+        {
+          "name": "{requestId}",
+          "item": [
+            {
+              "name": "Get requests by request id",
+              "id": "5f94544c-6d46-4698-a795-dd2a4f46a6ee",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/Requests/:requestId",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "Requests",
+                    ":requestId"
+                  ],
+                  "variable": [
+                    {
+                      "id": "1969e7f8-6c20-446c-8ac4-e68d5fcd6fa0",
+                      "key": "requestId",
+                      "value": "<uuid>",
+                      "description": "(Required) "
+                    }
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "id": "3c3d5297-d635-4972-b499-9688ab152fe1",
+                  "name": "OK",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "text/plain"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/Requests/:requestId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "Requests",
+                        ":requestId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "requestId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"raterId\": {},\n  \"intakeIds\": \"<array,null>\",\n  \"intakes\": \"<array,null>\",\n  \"raterVersion\": {},\n  \"generateWorksheet\": \"<boolean>\"\n}",
+                  "createdAt": "2026-10-22T01:50:41.000Z",
+                  "updatedAt": "2026-10-22T01:50:41.000Z",
+                  "uid": "35240-3c3d5297-d635-4972-b499-9688ab152fe1"
+                },
+                {
+                  "id": "86ec9642-f286-4577-96b9-6d244ed2023c",
+                  "name": "Not Found",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "text/plain"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/Requests/:requestId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "Requests",
+                        ":requestId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "requestId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"type\": \"<string,null>\",\n  \"title\": \"<string,null>\",\n  \"status\": \"<integer,null>\",\n  \"detail\": \"<string,null>\",\n  \"instance\": \"<string,null>\"\n}",
+                  "createdAt": "2026-10-22T01:50:41.000Z",
+                  "updatedAt": "2026-10-22T01:50:41.000Z",
+                  "uid": "35240-86ec9642-f286-4577-96b9-6d244ed2023c"
+                }
+              ],
+              "createdAt": "2026-10-22T01:50:41.000Z",
+              "updatedAt": "2026-10-22T01:50:41.000Z",
+              "uid": "35240-5f94544c-6d46-4698-a795-dd2a4f46a6ee"
+            },
+            {
+              "name": "Delete requests by request id",
+              "id": "77515819-ae1c-47c0-b04c-e122ada7a626",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/Requests/:requestId",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "Requests",
+                    ":requestId"
+                  ],
+                  "variable": [
+                    {
+                      "id": "049c3499-bf92-4b5b-802d-7032d92efc2e",
+                      "key": "requestId",
+                      "value": "<string>",
+                      "description": "(Required) "
+                    }
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "id": "a5a6fd3f-bb89-4e2c-b2e3-60b6275d99b8",
+                  "name": "No Content",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [],
+                    "url": {
+                      "raw": "{{baseUrl}}/Requests/:requestId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "Requests",
+                        ":requestId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "requestId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "No Content",
+                  "code": 204,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-10-22T01:50:41.000Z",
+                  "updatedAt": "2026-10-22T01:50:41.000Z",
+                  "uid": "35240-a5a6fd3f-bb89-4e2c-b2e3-60b6275d99b8"
+                },
+                {
+                  "id": "8c1d8b9c-6cbd-4d56-a4ff-688b07821445",
+                  "name": "Not Found",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "text/plain"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/Requests/:requestId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "Requests",
+                        ":requestId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "requestId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"type\": \"<string,null>\",\n  \"title\": \"<string,null>\",\n  \"status\": \"<integer,null>\",\n  \"detail\": \"<string,null>\",\n  \"instance\": \"<string,null>\"\n}",
+                  "createdAt": "2026-10-22T01:50:41.000Z",
+                  "updatedAt": "2026-10-22T01:50:41.000Z",
+                  "uid": "35240-8c1d8b9c-6cbd-4d56-a4ff-688b07821445"
+                }
+              ],
+              "createdAt": "2026-10-22T01:50:41.000Z",
+              "updatedAt": "2026-10-22T01:50:41.000Z",
+              "uid": "35240-77515819-ae1c-47c0-b04c-e122ada7a626"
+            }
+          ],
+          "id": "92d25bb3-80de-40a9-be61-31c3369a8cd6",
+          "createdAt": "2026-10-22T01:50:41.000Z",
+          "updatedAt": "2026-10-22T01:50:41.000Z",
+          "uid": "35240-92d25bb3-80de-40a9-be61-31c3369a8cd6"
+        }
+      ],
+      "id": "ee4cc408-43c1-468f-bcc6-8afc9d923f0a",
+      "createdAt": "2026-10-22T01:50:41.000Z",
+      "updatedAt": "2026-10-22T01:50:41.000Z",
+      "uid": "35240-ee4cc408-43c1-468f-bcc6-8afc9d923f0a"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://origamirater-standard.dev.dais.com?oas"
+    }
+  ]
+}
